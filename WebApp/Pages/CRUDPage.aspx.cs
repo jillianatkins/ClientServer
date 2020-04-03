@@ -29,9 +29,9 @@ namespace WebApp.Pages
                 pagenum = Request.QueryString["page"];
                 pid = Request.QueryString["pid"];
                 add = Request.QueryString["add"];
-                errormsgs.Add("The page you came from is: " + pagenum + ".  " +
-                              "You passed this ProductID: " + pid + ".  " +
-                              "You passed this Add option: " + add);
+                errormsgs.Add("The page you came from is: " + pagenum);
+                errormsgs.Add("You passed this ProductID: " + pid);
+                errormsgs.Add("You passed this Add option: " + add);
                 LoadMessageDisplay(errormsgs, "alert alert-info");
                 BindCategoryList();
                 BindSupplierList();
@@ -41,7 +41,7 @@ namespace WebApp.Pages
                 }
                 else if(add == "yes")
                 {
-                    
+                    Discontinued.Enabled = false;
                 }
                 else
                 {
@@ -147,7 +147,47 @@ namespace WebApp.Pages
                 LoadMessageDisplay(errormsgs, "alert alert-danger");
             }
         }
-        protected void Back_Click(object sender, EventArgs e)
+        protected bool Validation(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(ProductName.Text))
+            {
+                errormsgs.Add("Product Name is required");
+            }
+            if (CategoryList.SelectedIndex == 0)
+            {
+                errormsgs.Add("Category is required");
+            }
+            if (QuantityPerUnit.Text.Length > 20)
+            {
+                errormsgs.Add("Quantity per Unit is limited to 20 characters");
+            }
+            double unitprice = 0;
+            if (!string.IsNullOrEmpty(UnitPrice.Text))
+            {
+                if (double.TryParse(UnitPrice.Text, out unitprice))
+                {
+                    if (unitprice < 0.00 || unitprice > 200.00)
+                    {
+                        errormsgs.Add("Unit Price must be between $0.00 and $200.00");
+                    }
+                }
+                else
+                {
+                    errormsgs.Add("Unit Price must be a real number");
+                }
+            }
+            if (errormsgs.Count > 0)
+            {
+                LoadMessageDisplay(errormsgs, "alert alert-info");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+            
+        }
+            protected void Back_Click(object sender, EventArgs e)
         {
             if (pagenum == "4")
             {
@@ -173,118 +213,100 @@ namespace WebApp.Pages
         }
         protected void Add_Click(object sender, EventArgs e)
         {
-            if (Page.IsValid)
+            bool validdata = Validation(sender, e);
+            if (validdata)
             {
-                if (string.IsNullOrEmpty(ProductName.Text))
+                try
                 {
-                    errormsgs.Add("Product Name is required");
-                }
-                if (CategoryList.SelectedIndex == 0)
-                {
-                    errormsgs.Add("Category is required");
-                }
-                if (QuantityPerUnit.Text.Length > 20)
-                {
-                    errormsgs.Add("Quantity per Unit is limited to 20 characters");
-                }
-                if (errormsgs.Count > 0)
-                {
-                    LoadMessageDisplay(errormsgs, "alert alert-info");
-                }
-                else
-                {
-                    try
+                    Controller02 sysmgr = new Controller02();
+                    Entity02 item = new Entity02();
+                    item.ProductName = ProductName.Text.Trim();
+                    if (CategoryList.SelectedIndex == 0)
                     {
-                        Controller02 sysmgr = new Controller02();
-                        Entity02 item = new Entity02();
-                        item.ProductName = ProductName.Text.Trim();
-                        if (CategoryList.SelectedIndex == 0)
-                        {
-                            item.CategoryID = null;
-                        }
-                        else
-                        {
-                            item.CategoryID = int.Parse(CategoryList.SelectedValue);
-                        }
-                        if (SupplierList.SelectedIndex == 0)
-                        {
-                            item.SupplierID = null;
-                        }
-                        else
-                        {
-                            item.SupplierID = int.Parse(SupplierList.SelectedValue);
-                        }
-                        item.QuantityPerUnit =
-                            string.IsNullOrEmpty(QuantityPerUnit.Text) ? null : QuantityPerUnit.Text;
-                        if (string.IsNullOrEmpty(UnitPrice.Text))
-                        {
-                            item.UnitPrice = null;
-                        }
-                        else
-                        {
-                            item.UnitPrice = decimal.Parse(UnitPrice.Text);
-                        }
-                        if (string.IsNullOrEmpty(UnitsInStock.Text))
-                        {
-                            item.UnitsInStock = null;
-                        }
-                        else
-                        {
-                            item.UnitsInStock = Int16.Parse(UnitsInStock.Text);
-                        }
-                        if (string.IsNullOrEmpty(UnitsOnOrder.Text))
-                        {
-                            item.UnitsOnOrder = null;
-                        }
-                        else
-                        {
-                            item.UnitsOnOrder = Int16.Parse(UnitsOnOrder.Text);
-                        }
-                        if (string.IsNullOrEmpty(ReorderLevel.Text))
-                        {
-                            item.ReorderLevel = null;
-                        }
-                        else
-                        {
-                            item.ReorderLevel = Int16.Parse(ReorderLevel.Text);
-                        }
-                        item.Discontinued = false;
-                        int newProductID = sysmgr.Add(item);
-                        ProductID.Text = newProductID.ToString();
-                        errormsgs.Add("Product has been added");
-                        LoadMessageDisplay(errormsgs, "alert alert-success");
-                        //BindProductList(); //by default, list will be at index 0
-                        //ProductList.SelectedValue = ProductID.Text;
+                        item.CategoryID = null;
                     }
-                    catch (DbUpdateException ex)
+                    else
                     {
-                        UpdateException updateException = (UpdateException)ex.InnerException;
-                        if (updateException.InnerException != null)
-                        {
-                            errormsgs.Add(updateException.InnerException.Message.ToString());
-                        }
-                        else
-                        {
-                            errormsgs.Add(updateException.Message);
-                        }
-                        LoadMessageDisplay(errormsgs, "alert alert-danger");
+                        item.CategoryID = int.Parse(CategoryList.SelectedValue);
                     }
-                    catch (DbEntityValidationException ex)
+                    if (SupplierList.SelectedIndex == 0)
                     {
-                        foreach (var entityValidationErrors in ex.EntityValidationErrors)
-                        {
-                            foreach (var validationError in entityValidationErrors.ValidationErrors)
-                            {
-                                errormsgs.Add(validationError.ErrorMessage);
-                            }
-                        }
-                        LoadMessageDisplay(errormsgs, "alert alert-danger");
+                        item.SupplierID = null;
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        errormsgs.Add(GetInnerException(ex).ToString());
-                        LoadMessageDisplay(errormsgs, "alert alert-danger");
+                        item.SupplierID = int.Parse(SupplierList.SelectedValue);
                     }
+                    item.QuantityPerUnit =
+                        string.IsNullOrEmpty(QuantityPerUnit.Text) ? null : QuantityPerUnit.Text;
+                    if (string.IsNullOrEmpty(UnitPrice.Text))
+                    {
+                        item.UnitPrice = null;
+                    }
+                    else
+                    {
+                        item.UnitPrice = decimal.Parse(UnitPrice.Text);
+                    }
+                    if (string.IsNullOrEmpty(UnitsInStock.Text))
+                    {
+                        item.UnitsInStock = null;
+                    }
+                    else
+                    {
+                        item.UnitsInStock = Int16.Parse(UnitsInStock.Text);
+                    }
+                    if (string.IsNullOrEmpty(UnitsOnOrder.Text))
+                    {
+                        item.UnitsOnOrder = null;
+                    }
+                    else
+                    {
+                        item.UnitsOnOrder = Int16.Parse(UnitsOnOrder.Text);
+                    }
+                    if (string.IsNullOrEmpty(ReorderLevel.Text))
+                    {
+                        item.ReorderLevel = null;
+                    }
+                    else
+                    {
+                        item.ReorderLevel = Int16.Parse(ReorderLevel.Text);
+                    }
+                    item.Discontinued = false;
+                    int newProductID = sysmgr.Add(item);
+                    ProductID.Text = newProductID.ToString();
+                    errormsgs.Add("Product has been added");
+                    LoadMessageDisplay(errormsgs, "alert alert-success");
+                    //BindProductList(); //by default, list will be at index 0
+                    //ProductList.SelectedValue = ProductID.Text;
+                }
+                catch (DbUpdateException ex)
+                {
+                    UpdateException updateException = (UpdateException)ex.InnerException;
+                    if (updateException.InnerException != null)
+                    {
+                        errormsgs.Add(updateException.InnerException.Message.ToString());
+                    }
+                    else
+                    {
+                        errormsgs.Add(updateException.Message);
+                    }
+                    LoadMessageDisplay(errormsgs, "alert alert-danger");
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in entityValidationErrors.ValidationErrors)
+                        {
+                            errormsgs.Add(validationError.ErrorMessage);
+                        }
+                    }
+                    LoadMessageDisplay(errormsgs, "alert alert-danger");
+                }
+                catch (Exception ex)
+                {
+                    errormsgs.Add(GetInnerException(ex).ToString());
+                    LoadMessageDisplay(errormsgs, "alert alert-danger");
                 }
             }
         }
