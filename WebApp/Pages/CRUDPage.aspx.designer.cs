@@ -33,13 +33,13 @@ namespace WebApp.Pages
         protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// ProductID control.
+        /// ID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ProductID;
+        protected global::System.Web.UI.WebControls.TextBox ID;
 
         /// <summary>
         /// Label2 control.
@@ -51,13 +51,13 @@ namespace WebApp.Pages
         protected global::System.Web.UI.WebControls.Label Label2;
 
         /// <summary>
-        /// ProductName control.
+        /// Name control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ProductName;
+        protected global::System.Web.UI.WebControls.TextBox Name;
 
         /// <summary>
         /// Label6 control.
@@ -238,15 +238,6 @@ namespace WebApp.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button UpdateButton;
-
-        /// <summary>
-        /// DiscontinueButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button DiscontinueButton;
 
         /// <summary>
         /// DeleteButton control.

@@ -29,10 +29,6 @@ namespace WebApp.Pages
                 pagenum = Request.QueryString["page"];
                 pid = Request.QueryString["pid"];
                 add = Request.QueryString["add"];
-                errormsgs.Add("The page you came from is: " + pagenum);
-                errormsgs.Add("You passed this ProductID: " + pid);
-                errormsgs.Add("You passed this Add option: " + add);
-                LoadMessageDisplay(errormsgs, "alert alert-info");
                 BindCategoryList();
                 BindSupplierList();
                 if (string.IsNullOrEmpty(pid))
@@ -56,8 +52,8 @@ namespace WebApp.Pages
                     }
                     else
                     {
-                        ProductID.Text = info.ProductID.ToString();
-                        ProductName.Text = info.ProductName;
+                        ID.Text = info.ProductID.ToString();
+                        Name.Text = info.ProductName;
                         QuantityPerUnit.Text =
                             info.QuantityPerUnit == null ? "" : info.QuantityPerUnit;
                         UnitPrice.Text =
@@ -86,10 +82,8 @@ namespace WebApp.Pages
                             SupplierList.SelectedIndex = 0;
                         }
                     }
-                    
                 }
             }
-
         }
         protected Exception GetInnerException(Exception ex)
         {
@@ -147,9 +141,9 @@ namespace WebApp.Pages
                 LoadMessageDisplay(errormsgs, "alert alert-danger");
             }
         }
-        protected bool Validation(object sender, EventArgs e)
+        protected void Validation(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(ProductName.Text))
+            if (string.IsNullOrEmpty(Name.Text))
             {
                 errormsgs.Add("Product Name is required");
             }
@@ -175,17 +169,7 @@ namespace WebApp.Pages
                 {
                     errormsgs.Add("Unit Price must be a real number");
                 }
-            }
-            if (errormsgs.Count > 0)
-            {
-                LoadMessageDisplay(errormsgs, "alert alert-info");
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-            
+            } 
         }
             protected void Back_Click(object sender, EventArgs e)
         {
@@ -200,8 +184,8 @@ namespace WebApp.Pages
         }
         protected void Clear_Click(object sender, EventArgs e)
         {
-            ProductID.Text = "";
-            ProductName.Text = "";
+            ID.Text = "";
+            Name.Text = "";
             QuantityPerUnit.Text = "";
             UnitPrice.Text = "";
             UnitsInStock.Text = "";
@@ -213,22 +197,18 @@ namespace WebApp.Pages
         }
         protected void Add_Click(object sender, EventArgs e)
         {
-            bool validdata = Validation(sender, e);
-            if (validdata)
+            Validation(sender, e);
+            if (errormsgs.Count > 0)
+            {
+                LoadMessageDisplay(errormsgs, "alert alert-info");
+            }
+            else
             {
                 try
                 {
                     Controller02 sysmgr = new Controller02();
                     Entity02 item = new Entity02();
-                    item.ProductName = ProductName.Text.Trim();
-                    if (CategoryList.SelectedIndex == 0)
-                    {
-                        item.CategoryID = null;
-                    }
-                    else
-                    {
-                        item.CategoryID = int.Parse(CategoryList.SelectedValue);
-                    }
+                    item.ProductName = Name.Text.Trim();
                     if (SupplierList.SelectedIndex == 0)
                     {
                         item.SupplierID = null;
@@ -272,36 +252,10 @@ namespace WebApp.Pages
                         item.ReorderLevel = Int16.Parse(ReorderLevel.Text);
                     }
                     item.Discontinued = false;
-                    int newProductID = sysmgr.Add(item);
-                    ProductID.Text = newProductID.ToString();
+                    int newID = sysmgr.Add(item);
+                    ID.Text = newID.ToString();
                     errormsgs.Add("Product has been added");
                     LoadMessageDisplay(errormsgs, "alert alert-success");
-                    //BindProductList(); //by default, list will be at index 0
-                    //ProductList.SelectedValue = ProductID.Text;
-                }
-                catch (DbUpdateException ex)
-                {
-                    UpdateException updateException = (UpdateException)ex.InnerException;
-                    if (updateException.InnerException != null)
-                    {
-                        errormsgs.Add(updateException.InnerException.Message.ToString());
-                    }
-                    else
-                    {
-                        errormsgs.Add(updateException.Message);
-                    }
-                    LoadMessageDisplay(errormsgs, "alert alert-danger");
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    foreach (var entityValidationErrors in ex.EntityValidationErrors)
-                    {
-                        foreach (var validationError in entityValidationErrors.ValidationErrors)
-                        {
-                            errormsgs.Add(validationError.ErrorMessage);
-                        }
-                    }
-                    LoadMessageDisplay(errormsgs, "alert alert-danger");
                 }
                 catch (Exception ex)
                 {
@@ -312,16 +266,69 @@ namespace WebApp.Pages
         }
         protected void Update_Click(object sender, EventArgs e)
         {
+            int id = 0;
+            if (string.IsNullOrEmpty(ID.Text))
+            {
+                errormsgs.Add("Search for a product to update");
+            }
+            else if (!int.TryParse(ID.Text, out id))
+            {
+                errormsgs.Add("Product id is invalid");
+            }
+            else if (id < 1)
+            {
+                errormsgs.Add("Product id is invalid");
+            }
+            Validation(sender, e);
+            if (errormsgs.Count > 0)
+            {
+                LoadMessageDisplay(errormsgs, "alert alert-info");
+            }
+            else
+            {
 
-        }
-        protected void Discontinue_Click(object sender, EventArgs e)
-        {
-
+            }
         }
         protected void Delete_Click(object sender, EventArgs e)
         {
+            int id = 0;
+            if (string.IsNullOrEmpty(ID.Text))
+            {
+                errormsgs.Add("Search for a product to delete");
+            }
+            else if (!int.TryParse(ID.Text, out id))
+            {
+                errormsgs.Add("Product id is invalid");
+            }
+            if (errormsgs.Count > 0)
+            {
+                LoadMessageDisplay(errormsgs, "alert alert-info");
+            }
+            else
+            {
+                try
+                {
+                    Controller02 sysmgr = new Controller02();
+                    int rowsaffected = sysmgr.Delete(id);
+                    if (rowsaffected > 0)
+                    {
+                        errormsgs.Add("Product has been deleted");
+                        LoadMessageDisplay(errormsgs, "alert alert-success");
+                        Clear_Click(sender, e);
+                    }
+                    else
+                    {
+                        errormsgs.Add("Product was not found");
+                        LoadMessageDisplay(errormsgs, "alert alert-warning");
+                    }
 
+                }
+                catch (Exception ex)
+                {
+                    errormsgs.Add(GetInnerException(ex).ToString());
+                    LoadMessageDisplay(errormsgs, "alert alert-danger");
+                }
+            }
         }
-
     }
 }

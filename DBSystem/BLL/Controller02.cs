@@ -81,7 +81,7 @@ namespace DBSystem.BLL
                 var existing = context.Entity02s.Find(productid);
                 if (existing == null)
                 {
-                    throw new Exception("Record has been remove from database");
+                    throw new Exception("Record has been removed from database");
                 }
                 context.Entity02s.Remove(existing);
                 return context.SaveChanges();

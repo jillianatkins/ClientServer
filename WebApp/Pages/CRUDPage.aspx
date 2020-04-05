@@ -8,22 +8,22 @@
     </asp:DataList>
     <div class="row">
         <div class="col-md-4 text-right">
-                <asp:Label ID="Label1" runat="server" Text="Product ID"
-                     AssociatedControlID="ProductID">
+                <asp:Label ID="Label1" runat="server" Text="ID"
+                     AssociatedControlID="ID">
                 </asp:Label>
         </div>
         <div class="col-md-4 text-left">
-                <asp:TextBox ID="ProductID" runat="server" ReadOnly="true">
+                <asp:TextBox ID="ID" runat="server" ReadOnly="true">
                 </asp:TextBox>
         </div>
     </div>
     <div class="row">
         <div class="col-md-4 text-right">
                   <asp:Label ID="Label2" runat="server" Text="Name"
-                     AssociatedControlID="ProductName"></asp:Label>
+                     AssociatedControlID="Name"></asp:Label>
         </div>
         <div class="col-md-4 text-left">
-                <asp:TextBox ID="ProductName" runat="server"></asp:TextBox>
+                <asp:TextBox ID="Name" runat="server"></asp:TextBox>
         </div>
     </div>
     <div class="row">
@@ -33,7 +33,7 @@
                 </asp:Label>
         </div>
         <div class="col-md-4 text-left">
-                <asp:DropDownList ID="SupplierList" runat="server" Width="350px" >
+                <asp:DropDownList ID="SupplierList" runat="server" Width="300px">
                 </asp:DropDownList> 
         </div>
     </div>
@@ -44,7 +44,7 @@
                 </asp:Label>
         </div>
         <div class="col-md-4 text-left">
-                <asp:DropDownList ID="CategoryList" runat="server" Width="350px" >
+                <asp:DropDownList ID="CategoryList" runat="server" Width="300px" >
                 </asp:DropDownList> 
         </div>
     </div>
@@ -108,7 +108,7 @@
                   </asp:Label>
         </div>
         <div class="col-md-4 text-left">
-                <asp:CheckBox ID="Discontinued" runat="server" Text="Discontinued" >
+                <asp:CheckBox ID="Discontinued" runat="server">
                 </asp:CheckBox> 
         </div>
     </div>
@@ -120,7 +120,6 @@
             <asp:Button ID="ClearButton" runat="server" OnClick="Clear_Click" Text="Clear" CausesValidation="false"/>&nbsp;&nbsp;
             <asp:Button ID="AddButton" runat="server" OnClick="Add_Click" Text="Add"/>&nbsp;&nbsp;
             <asp:Button ID="UpdateButton" runat="server" OnClick="Update_Click" Text="Update"/>&nbsp;&nbsp;
-            <asp:Button ID="DiscontinueButton" runat="server" OnClick="Discontinue_Click" Text="Discontinue"/>&nbsp;&nbsp;
             <asp:Button ID="DeleteButton" runat="server" OnClick="Delete_Click" Text="Delete"
             OnClientClick="return confirm('Are you sure you wish to delete this item?')"/>
         </div>
