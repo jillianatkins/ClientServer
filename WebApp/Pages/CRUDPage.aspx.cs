@@ -308,6 +308,7 @@ namespace WebApp.Pages
             {
                 try
                 {
+                    ScriptManager.RegisterStartupScript(this, GetType(), "CallFunction", "CallFunction();", true);
                     Controller02 sysmgr = new Controller02();
                     int rowsaffected = sysmgr.Delete(id);
                     if (rowsaffected > 0)
