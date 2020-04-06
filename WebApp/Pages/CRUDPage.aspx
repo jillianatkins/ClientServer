@@ -124,8 +124,8 @@
         </div>
     </div>
     <script type="text/javascript">
-       function CallFunction() {
-           alert("Are you sure you wish to delete this item?");
+        function CallFunction() {
+            confirm("Are you sure you wish to delete this item?")
        }
    </script>
 </asp:Content>
