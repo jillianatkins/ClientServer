@@ -120,12 +120,13 @@
             <asp:Button ID="ClearButton" runat="server" OnClick="Clear_Click" Text="Clear" CausesValidation="false"/>&nbsp;&nbsp;
             <asp:Button ID="AddButton" runat="server" OnClick="Add_Click" Text="Add"/>&nbsp;&nbsp;
             <asp:Button ID="UpdateButton" runat="server" OnClick="Update_Click" Text="Update"/>&nbsp;&nbsp;
-            <asp:Button ID="DeleteButton" runat="server" OnClick="Delete_Click" Text="Delete"/>
+            <asp:Button ID="DeleteButton" runat="server" OnClick="Delete_Click" Text="Delete"
+              OnClientClick="return CallFunction();"/>
         </div>
     </div>
     <script type="text/javascript">
         function CallFunction() {
-            confirm("Are you sure you wish to delete this item?")
+            return confirm("Are you sure you wish to delete this record?");
        }
    </script>
 </asp:Content>
