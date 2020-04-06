@@ -275,10 +275,6 @@ namespace WebApp.Pages
             {
                 errormsgs.Add("Product id is invalid");
             }
-            else if (id < 1)
-            {
-                errormsgs.Add("Product id is invalid");
-            }
             Validation(sender, e);
             if (errormsgs.Count > 0)
             {
