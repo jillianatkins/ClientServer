@@ -12,18 +12,18 @@ namespace DBSystem.BLL
 {
     public class Controller01 //Category
     {
+        public Entity01 FindByPKID(int id)
+        {
+            using (var context = new Context())
+            {
+                return context.Entity01s.Find(id);
+            }
+        }
         public List<Entity01> List()
         {
             using (var context = new Context())
             {
                 return context.Entity01s.ToList();
-            }
-        }
-        public Entity01 FindByID(int id)
-        {
-            using (var context = new Context())
-            {
-                return context.Entity01s.Find(id);
             }
         }
     }

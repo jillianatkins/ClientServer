@@ -64,16 +64,6 @@ namespace DBSystem.BLL
                 return context.SaveChanges();
             }
         }
-        public int Discontinue(int productid)
-        {
-            using (var context = new Context())
-            {
-                var existing = context.Entity02s.Find(productid);
-                existing.Discontinued = true;
-                context.Entry(existing).State = System.Data.Entity.EntityState.Modified;
-                return context.SaveChanges();
-            }
-        }
         public int Delete(int productid)
         {
             using (var context = new Context())

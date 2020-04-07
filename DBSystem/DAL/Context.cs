@@ -11,10 +11,9 @@ namespace DBSystem.DAL
 {
     internal class Context : DbContext
     {
-        public Context() : base("NWDB")
-        {
-
-        }
+        public Context() : base("NWDB") { }
+        //public Context() : base("FSIS_db") { }
+        //public Context() : base("StarTEDDB") { }
         public DbSet<Entity01> Entity01s { get; set; }
         public DbSet<Entity02> Entity02s { get; set; }
         public DbSet<Entity03> Entity03s { get; set; }

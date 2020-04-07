@@ -51,7 +51,7 @@ namespace WebApp.Pages
                 {
                     Controller01 sysmgr01 = new Controller01();
                     Entity01 info01 = null;
-                    info01 = sysmgr01.FindByID(int.Parse(List01.SelectedValue));
+                    info01 = sysmgr01.FindByPKID(int.Parse(List01.SelectedValue));
                     IDLabel01.Text = "Category ID:";
                     IDLabel02.Text = info01.CategoryID.ToString();
                     NameLabel01.Text = "Category Name:";
