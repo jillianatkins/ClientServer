@@ -46,7 +46,7 @@ namespace WebApp.Pages
                     info = sysmgr.FindByPKID(int.Parse(pid));
                     if (info == null)
                     {
-                        errormsgs.Add("Product is no longer on file.");
+                        errormsgs.Add("Record is no longer on file.");
                         LoadMessageDisplay(errormsgs, "alert alert-info");
                         Clear_Click(sender, e);
                     }
@@ -145,7 +145,7 @@ namespace WebApp.Pages
         {
             if (string.IsNullOrEmpty(Name.Text))
             {
-                errormsgs.Add("Product Name is required");
+                errormsgs.Add("Name is required");
             }
             if (CategoryList.SelectedIndex == 0)
             {
@@ -217,6 +217,7 @@ namespace WebApp.Pages
                     {
                         item.SupplierID = int.Parse(SupplierList.SelectedValue);
                     }
+                    item.CategoryID = int.Parse(CategoryList.SelectedValue);
                     item.QuantityPerUnit =
                         string.IsNullOrEmpty(QuantityPerUnit.Text) ? null : QuantityPerUnit.Text;
                     if (string.IsNullOrEmpty(UnitPrice.Text))
@@ -254,7 +255,7 @@ namespace WebApp.Pages
                     item.Discontinued = false;
                     int newID = sysmgr.Add(item);
                     ID.Text = newID.ToString();
-                    errormsgs.Add("Product has been added");
+                    errormsgs.Add("Record has been added");
                     LoadMessageDisplay(errormsgs, "alert alert-success");
                 }
                 catch (Exception ex)
@@ -269,11 +270,11 @@ namespace WebApp.Pages
             int id = 0;
             if (string.IsNullOrEmpty(ID.Text))
             {
-                errormsgs.Add("Search for a product to update");
+                errormsgs.Add("Search for a record to update");
             }
             else if (!int.TryParse(ID.Text, out id))
             {
-                errormsgs.Add("Product id is invalid");
+                errormsgs.Add("Id is invalid");
             }
             Validation(sender, e);
             if (errormsgs.Count > 0)
@@ -282,7 +283,73 @@ namespace WebApp.Pages
             }
             else
             {
-
+                try
+                {
+                    Controller02 sysmgr = new Controller02();
+                    Entity02 item = new Entity02();
+                    item.ProductID = int.Parse(ID.Text);
+                    item.ProductName = Name.Text.Trim();
+                    if (SupplierList.SelectedIndex == 0)
+                    {
+                        item.SupplierID = null;
+                    }
+                    else
+                    {
+                        item.SupplierID = int.Parse(SupplierList.SelectedValue);
+                    }
+                    item.CategoryID = int.Parse(CategoryList.SelectedValue);
+                    item.QuantityPerUnit =
+                        string.IsNullOrEmpty(QuantityPerUnit.Text) ? null : QuantityPerUnit.Text;
+                    if (string.IsNullOrEmpty(UnitPrice.Text))
+                    {
+                        item.UnitPrice = null;
+                    }
+                    else
+                    {
+                        item.UnitPrice = decimal.Parse(UnitPrice.Text);
+                    }
+                    if (string.IsNullOrEmpty(UnitsInStock.Text))
+                    {
+                        item.UnitsInStock = null;
+                    }
+                    else
+                    {
+                        item.UnitsInStock = Int16.Parse(UnitsInStock.Text);
+                    }
+                    if (string.IsNullOrEmpty(UnitsOnOrder.Text))
+                    {
+                        item.UnitsOnOrder = null;
+                    }
+                    else
+                    {
+                        item.UnitsOnOrder = Int16.Parse(UnitsOnOrder.Text);
+                    }
+                    if (string.IsNullOrEmpty(ReorderLevel.Text))
+                    {
+                        item.ReorderLevel = null;
+                    }
+                    else
+                    {
+                        item.ReorderLevel = Int16.Parse(ReorderLevel.Text);
+                    }
+                    item.Discontinued = Discontinued.Checked;
+                    int rowsaffected = sysmgr.Update(item);
+                    if (rowsaffected > 0)
+                    {
+                        errormsgs.Add("Record has been updated");
+                        LoadMessageDisplay(errormsgs, "alert alert-success");
+                    }
+                    else
+                    {
+                        errormsgs.Add("Record was not found");
+                        LoadMessageDisplay(errormsgs, "alert alert-warning");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    errormsgs.Add(GetInnerException(ex).ToString());
+                    LoadMessageDisplay(errormsgs, "alert alert-danger");
+                }
             }
         }
         protected void Delete_Click(object sender, EventArgs e)
@@ -290,11 +357,11 @@ namespace WebApp.Pages
             int id = 0;
             if (string.IsNullOrEmpty(ID.Text))
             {
-                errormsgs.Add("Search for a product to delete");
+                errormsgs.Add("Search for a record to delete");
             }
             else if (!int.TryParse(ID.Text, out id))
             {
-                errormsgs.Add("Product id is invalid");
+                errormsgs.Add("Id is invalid");
             }
             if (errormsgs.Count > 0)
             {
@@ -304,18 +371,17 @@ namespace WebApp.Pages
             {
                 try
                 {
-                    //ScriptManager.RegisterStartupScript(this, GetType(), "CallFunction", "CallFunction();", true);
                     Controller02 sysmgr = new Controller02();
                     int rowsaffected = sysmgr.Delete(id);
                     if (rowsaffected > 0)
                     {
-                        errormsgs.Add("Product has been deleted");
+                        errormsgs.Add("Record has been deleted");
                         LoadMessageDisplay(errormsgs, "alert alert-success");
                         Clear_Click(sender, e);
                     }
                     else
                     {
-                        errormsgs.Add("Product was not found");
+                        errormsgs.Add("Record was not found");
                         LoadMessageDisplay(errormsgs, "alert alert-warning");
                     }
 
