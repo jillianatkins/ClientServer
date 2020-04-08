@@ -38,9 +38,13 @@ namespace WebApp.Pages
                 else if(add == "yes")
                 {
                     Discontinued.Enabled = false;
+                    UpdateButton.Enabled = false;
+                    DeleteButton.Enabled = false;
+
                 }
                 else
                 {
+                    AddButton.Enabled = false;
                     Controller02 sysmgr = new Controller02();
                     Entity02 info = null;
                     info = sysmgr.FindByPKID(int.Parse(pid));
@@ -384,6 +388,9 @@ namespace WebApp.Pages
                         errormsgs.Add("Record was not found");
                         LoadMessageDisplay(errormsgs, "alert alert-warning");
                     }
+                    UpdateButton.Enabled = false;
+                    DeleteButton.Enabled = false;
+                    AddButton.Enabled = true;
 
                 }
                 catch (Exception ex)
