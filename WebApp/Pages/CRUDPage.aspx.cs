@@ -261,6 +261,9 @@ namespace WebApp.Pages
                     ID.Text = newID.ToString();
                     errormsgs.Add("Record has been added");
                     LoadMessageDisplay(errormsgs, "alert alert-success");
+                    UpdateButton.Enabled = true;
+                    DeleteButton.Enabled = true;
+                    Discontinued.Enabled = true;
                 }
                 catch (Exception ex)
                 {
@@ -390,6 +393,7 @@ namespace WebApp.Pages
                     }
                     UpdateButton.Enabled = false;
                     DeleteButton.Enabled = false;
+                    Discontinued.Enabled = false;
                     AddButton.Enabled = true;
 
                 }
