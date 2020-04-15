@@ -11,17 +11,8 @@ namespace WebApp.Pages
 {
 
 
-    public partial class _14PartialStringSearchToCustGridViewToSingleRec
+    public partial class _30ASPControlsMultiRecordDropdownToDefaultGridView
     {
-
-        /// <summary>
-        /// Message control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList Message;
 
         /// <summary>
         /// Label1 control.
@@ -33,22 +24,22 @@ namespace WebApp.Pages
         protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// PartialProductNameV2 control.
+        /// List01 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox PartialProductNameV2;
+        protected global::System.Web.UI.WebControls.DropDownList List01;
 
         /// <summary>
-        /// SearchProductsPartial control.
+        /// Fetch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SearchProductsPartial;
+        protected global::System.Web.UI.WebControls.Button Fetch;
 
         /// <summary>
         /// MessageLabel control.
@@ -60,12 +51,12 @@ namespace WebApp.Pages
         protected global::System.Web.UI.WebControls.Label MessageLabel;
 
         /// <summary>
-        /// ProductGridViewV2 control.
+        /// List02 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView ProductGridViewV2;
+        protected global::System.Web.UI.WebControls.GridView List02;
     }
 }

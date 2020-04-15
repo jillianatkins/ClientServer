@@ -10,7 +10,7 @@ using DBSystem.ENTITIES;
 
 namespace WebApp.Pages
 {
-    public partial class _14PartialStringSearchToCustGridViewToSingleRec : System.Web.UI.Page
+    public partial class _80ASPControlsPartialStringSearchToCustGridViewToSingleRec : System.Web.UI.Page
     {
         List<string> errormsgs = new List<string>();
         protected void Page_Load(object sender, EventArgs e)

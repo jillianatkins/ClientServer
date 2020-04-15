@@ -11,7 +11,7 @@ namespace WebApp.Pages
 {
 
 
-    public partial class _16PartialStringSearchToDropToSingleRec
+    public partial class _90ASPControlsPartialStringSearchToDropToSingleRec
     {
     }
 }

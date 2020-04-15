@@ -10,7 +10,7 @@ using DBSystem.ENTITIES;
 
 namespace WebApp.Pages
 {
-    public partial class _08MultiRecordDropdownToSingleRecord : System.Web.UI.Page
+    public partial class _50ASPControlsMultiRecordDropdownToSingleRecord : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

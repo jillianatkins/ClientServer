@@ -1,50 +1,33 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="06MultiRecordDropdownToCustomGridView.aspx.cs" Inherits="WebApp.Pages._06MultiRecordDropdownToCustomGridView" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="80ASPControlsPartialStringSearchToCustGridViewToSingleRec.aspx.cs" Inherits="WebApp.Pages._80ASPControlsPartialStringSearchToCustGridViewToSingleRec" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-        <h1> Multi Record Query Dropdown to Custom GridView (Ex06)</h1>
+    <h1> Partial String Search to Custom GridView to Single Record via Page Navigation</h1>
     <div class="offset-2">
-        <asp:Label ID="Label1" runat="server" Text="Select a Category "></asp:Label>&nbsp;&nbsp;   
-        <asp:DropDownList ID="List01" runat="server"></asp:DropDownList>&nbsp;&nbsp;
-        <asp:Button ID="Fetch" runat="server" Text="Fetch" 
-             CausesValidation="false" OnClick="Fetch_Click"/>
-    </div>
-    <div class="row">
-        <div class="col-md-4 text-right">
-            <asp:Label ID="IDLabel01" runat="server" ></asp:Label>
-        </div>
-        <div class="col-md-4 text-left">
-            <asp:Label ID="IDLabel02" runat="server" ></asp:Label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 text-right">
-            <asp:Label ID="NameLabel01" runat="server" ></asp:Label>
-        </div>
-        <div class="col-md-4 text-left">
-            <asp:Label ID="NameLabel02" runat="server" ></asp:Label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 text-right">
-            <asp:Label ID="DescriptionLabel01" runat="server" ></asp:Label>
-        </div>
-        <div class="col-md-4 text-left">
-            <asp:Label ID="DescriptionLabel02" runat="server" ></asp:Label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 text-right">
-            <asp:Label ID="MessageLabel" runat="server" ></asp:Label>
-        </div>
-    </div>    
-    <br /><br />
-    <div>
-        <asp:GridView ID="List02" runat="server" 
+        <asp:DataList ID="Message" runat="server" Enabled="False">
+        <ItemTemplate>
+            <%# Container.DataItem %>
+        </ItemTemplate>
+        </asp:DataList>
+        <br />
+        <asp:Label ID="Label1" runat="server" Text="Enter a Partial Product Name "></asp:Label>&nbsp;&nbsp
+        <asp:TextBox ID="PartialProductNameV2" runat="server"></asp:TextBox>
+        <asp:Button ID="SearchProductsPartial" runat="server" Text="Search Products"
+            OnClick="SearchProductsPartial_Click" />
+        <br />
+        <br />
+        <asp:Label ID="MessageLabel" runat="server" ></asp:Label>
+        <br />
+        <asp:GridView ID="ProductGridViewV2" runat="server"
+
             AutoGenerateColumns="False"
             CssClass="table table-striped" GridLines="Horizontal"
             BorderStyle="None" AllowPaging="True"
-            OnPageIndexChanging="List02_PageIndexChanging" PageSize="5">
+            OnPageIndexChanging="List02_PageIndexChanging" PageSize="5"
+            OnSelectedIndexChanged="List02_SelectedIndexChanged">
 
             <Columns>
+                <asp:CommandField SelectText="View" ShowSelectButton="True" 
+                    ButtonType="Button" CausesValidation="false">
+                </asp:CommandField>
                 <asp:TemplateField HeaderText="ID" Visible="True">
                     <ItemStyle HorizontalAlign="Left"></ItemStyle>
                     <ItemTemplate>
@@ -93,4 +76,3 @@
         </asp:GridView>
     </div>
 </asp:Content>
-

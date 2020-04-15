@@ -10,7 +10,7 @@ using DBSystem.ENTITIES;
 
 namespace WebApp.Pages
 {
-    public partial class _10MultiRecDropToCustGridViewToSingleRec : System.Web.UI.Page
+    public partial class _60ASPControlsMultiRecDropToCustGridViewToSingleRec : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

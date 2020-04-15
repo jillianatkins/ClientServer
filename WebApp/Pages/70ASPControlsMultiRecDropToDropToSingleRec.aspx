@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="12MultiRecDropToDropToSingleRec.aspx.cs" Inherits="WebApp.Pages._12MultiRecordDropToDropToSingleRec" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="70ASPControlsMultiRecDropToDropToSingleRec.aspx.cs" Inherits="WebApp.Pages._70ASPControlsMultiRecordDropToDropToSingleRec" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h1> Multi Record Query Dropdown to another Dropdown to a Single Record via Page Navigation</h1>
     <div class="row">

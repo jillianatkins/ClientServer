@@ -11,7 +11,7 @@ namespace WebApp.Pages
 {
 
 
-    public partial class _08MultiRecordDropdownToSingleRecord
+    public partial class _70ASPControlsMultiRecordDropToDropToSingleRec
     {
 
         /// <summary>
@@ -33,30 +33,48 @@ namespace WebApp.Pages
         protected global::System.Web.UI.WebControls.DropDownList List01;
 
         /// <summary>
-        /// ButtonFetch control.
+        /// Fetch01 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonFetch;
+        protected global::System.Web.UI.WebControls.Button Fetch01;
 
         /// <summary>
-        /// ButtonAdd control.
+        /// Label2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonAdd;
+        protected global::System.Web.UI.WebControls.Label Label2;
 
         /// <summary>
-        /// MessageLabel1 control.
+        /// List02 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label MessageLabel1;
+        protected global::System.Web.UI.WebControls.DropDownList List02;
+
+        /// <summary>
+        /// Fetch02 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Fetch02;
+
+        /// <summary>
+        /// MessageLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label MessageLabel;
     }
 }
