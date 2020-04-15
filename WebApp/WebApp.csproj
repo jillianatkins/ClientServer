@@ -125,6 +125,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Pages\01HTMLServerControls.aspx" />
     <Content Include="Pages\01SingleRecordQuery.aspx" />
     <Content Include="Pages\08MultiRecordDropdownToSingleRecord.aspx" />
     <Content Include="Pages\06MultiRecordDropdownToCustomGridView.aspx" />
@@ -303,6 +304,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\01HTMLServerControls.aspx.cs">
+      <DependentUpon>01HTMLServerControls.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\01HTMLServerControls.aspx.designer.cs">
+      <DependentUpon>01HTMLServerControls.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\01SingleRecordQuery.aspx.cs">
       <DependentUpon>01SingleRecordQuery.aspx</DependentUpon>

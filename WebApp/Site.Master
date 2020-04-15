@@ -61,6 +61,11 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarSubMenu">
                                     <a class="dropdown-item"
+                                            href="~/Pages/01HTMLServerControls.aspx"
+                                            style="color:black" runat="server">
+                                            01-HTML Server Controls
+                                    </a>
+                                    <a class="dropdown-item"
                                             href="~/Pages/01SingleRecordQuery.aspx"
                                             style="color:black" runat="server">
                                             01-Single Record Query using Primary Key (Ex05)
