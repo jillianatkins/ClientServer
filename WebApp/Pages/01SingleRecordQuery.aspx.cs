@@ -17,12 +17,16 @@ namespace WebApp.Pages
             //MessageLabel.Text = "";
             ID.Text = "";
             Name.Text = "";
+            //buttonFetch.Disabled = true;
         }
 
         protected void Fetch_Click(object sender, EventArgs e)
         {
             string n = String.Format("{0}", Request.Form["IDArg"]);
-            //MessageLabel.Text = n;
+            string w = IDArg.Value;
+            MessageLabel.InnerText = w;
+            labelMessage.Value = w;
+            hey.InnerText = "hey man";
 
             //if (string.IsNullOrEmpty(ctl00$MainContent$IDArg.Text))
             //{
