@@ -52,7 +52,7 @@ namespace WebApp.Pages
                     {
                         errormsgs.Add("Record is no longer on file.");
                         LoadMessageDisplay(errormsgs, "alert alert-info");
-                        Clear_Click(sender, e);
+                        Clear(sender, e);
                     }
                     else
                     {
@@ -179,14 +179,14 @@ namespace WebApp.Pages
         {
             if (pagenum == "4")
             {
-                Response.Redirect("08MultiRecordDropdownToSingleRecord.aspx");
+                Response.Redirect("50ASPControlsMultiRecordDropdownToSingleRecord.aspx");
             }
             else
             {
                 Response.Redirect("~/Default.aspx");
             }
         }
-        protected void Clear_Click(object sender, EventArgs e)
+        protected void Clear(object sender, EventArgs e)
         {
             ID.Text = "";
             Name.Text = "";
@@ -361,14 +361,9 @@ namespace WebApp.Pages
         }
         protected void Delete_Click(object sender, EventArgs e)
         {
-            int id = 0;
             if (string.IsNullOrEmpty(ID.Text))
             {
                 errormsgs.Add("Search for a record to delete");
-            }
-            else if (!int.TryParse(ID.Text, out id))
-            {
-                errormsgs.Add("Id is invalid");
             }
             if (errormsgs.Count > 0)
             {
@@ -379,12 +374,12 @@ namespace WebApp.Pages
                 try
                 {
                     Controller02 sysmgr = new Controller02();
-                    int rowsaffected = sysmgr.Delete(id);
+                    int rowsaffected = sysmgr.Delete(int.Parse(ID.Text));
                     if (rowsaffected > 0)
                     {
                         errormsgs.Add("Record has been deleted");
                         LoadMessageDisplay(errormsgs, "alert alert-success");
-                        Clear_Click(sender, e);
+                        Clear(sender, e);
                     }
                     else
                     {

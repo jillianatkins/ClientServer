@@ -1,11 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CRUDPage.aspx.cs" Inherits="WebApp.Pages.CRUDPage" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h1>Product Maintenance Page</h1>
-    <asp:DataList ID="Message" runat="server">
-        <ItemTemplate>
-            <%# Container.DataItem %>
-        </ItemTemplate>
-    </asp:DataList>
+    
     <div class="row">
         <div class="col-md-4 text-right">
                 <asp:Label ID="Label1" runat="server" Text="ID"
@@ -121,6 +117,16 @@
             <asp:Button ID="UpdateButton" runat="server" OnClick="Update_Click" Text="Update"/>&nbsp;&nbsp;
             <asp:Button ID="DeleteButton" runat="server" OnClick="Delete_Click" Text="Delete"
               OnClientClick="return CallFunction();"/>
+        </div>
+    </div>
+    <br /><br />
+    <div class="row">
+        <div class="offset-2"> 
+            <asp:DataList ID="Message" runat="server">
+            <ItemTemplate>
+                <%# Container.DataItem %>
+            </ItemTemplate>
+            </asp:DataList>
         </div>
     </div>
     <script type="text/javascript">
