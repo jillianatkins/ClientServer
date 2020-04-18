@@ -19,7 +19,6 @@ namespace WebApp.Pages
         static string pid = "";
         static string add = "";
         List<string> errormsgs = new List<string>();
-        private static List<Entity02> Entity02List = new List<Entity02>();
         protected void Page_Load(object sender, EventArgs e)
         {
             Message.DataSource = null;
@@ -50,26 +49,15 @@ namespace WebApp.Pages
                     info = sysmgr.FindByPKID(int.Parse(pid));
                     if (info == null)
                     {
-                        errormsgs.Add("Record is no longer on file.");
+                        errormsgs.Add("Record is not in Database.");
                         LoadMessageDisplay(errormsgs, "alert alert-info");
                         Clear(sender, e);
                     }
                     else
                     {
-                        ID.Text = info.ProductID.ToString();
-                        Name.Text = info.ProductName;
-                        QuantityPerUnit.Text =
-                            info.QuantityPerUnit == null ? "" : info.QuantityPerUnit;
-                        UnitPrice.Text =
-                            info.UnitPrice.HasValue ? string.Format("{0:0.00}", info.UnitPrice.Value) : "";
-                        UnitsInStock.Text =
-                            info.UnitsInStock.HasValue ? info.UnitsInStock.Value.ToString() : "";
-                        UnitsOnOrder.Text =
-                            info.UnitsOnOrder.HasValue ? info.UnitsOnOrder.Value.ToString() : "";
-                        ReorderLevel.Text =
-                            info.ReorderLevel.HasValue ? info.ReorderLevel.Value.ToString() : "";
-                        Discontinued.Checked = info.Discontinued;
-                        if (info.CategoryID.HasValue)
+                        ID.Text = info.ProductID.ToString(); //NOT NULL
+                        Name.Text = info.ProductName; //NOT NULL
+                        if (info.CategoryID.HasValue) //NULL
                         {
                             CategoryList.SelectedValue = info.CategoryID.ToString();
                         }
@@ -77,7 +65,7 @@ namespace WebApp.Pages
                         {
                             CategoryList.SelectedIndex = 0;
                         }
-                        if (info.SupplierID.HasValue)
+                        if (info.SupplierID.HasValue) //NULL
                         {
                             SupplierList.SelectedValue = info.SupplierID.ToString();
                         }
@@ -85,6 +73,17 @@ namespace WebApp.Pages
                         {
                             SupplierList.SelectedIndex = 0;
                         }
+                        QuantityPerUnit.Text =
+                            info.QuantityPerUnit == null ? "" : info.QuantityPerUnit; //NULL
+                        UnitPrice.Text =
+                            info.UnitPrice.HasValue ? string.Format("{0:0.00}", info.UnitPrice.Value) : ""; //NULL
+                        UnitsInStock.Text =
+                            info.UnitsInStock.HasValue ? info.UnitsInStock.Value.ToString() : ""; //NULL
+                        UnitsOnOrder.Text =
+                            info.UnitsOnOrder.HasValue ? info.UnitsOnOrder.Value.ToString() : ""; //NULL
+                        ReorderLevel.Text =
+                            info.ReorderLevel.HasValue ? info.ReorderLevel.Value.ToString() : ""; //NULL
+                        Discontinued.Checked = info.Discontinued; //NOT NULL
                     }
                 }
             }
@@ -173,7 +172,11 @@ namespace WebApp.Pages
                 {
                     errormsgs.Add("Unit Price must be a real number");
                 }
-            } 
+            }
+            else
+            {
+                errormsgs.Add("Unit Price is required");
+            }
         }
             protected void Back_Click(object sender, EventArgs e)
         {
@@ -212,8 +215,9 @@ namespace WebApp.Pages
                 {
                     Controller02 sysmgr = new Controller02();
                     Entity02 item = new Entity02();
-                    item.ProductName = Name.Text.Trim();
-                    if (SupplierList.SelectedIndex == 0)
+                    //No ProductID here as the database will give a new one back when we add
+                    item.ProductName = Name.Text.Trim(); //NOT NULL
+                    if (SupplierList.SelectedIndex == 0) //NULL
                     {
                         item.SupplierID = null;
                     }
@@ -221,18 +225,13 @@ namespace WebApp.Pages
                     {
                         item.SupplierID = int.Parse(SupplierList.SelectedValue);
                     }
+                    //CategoryID can be NULL in database but NOT NULL when record is added in this CRUD page
                     item.CategoryID = int.Parse(CategoryList.SelectedValue);
                     item.QuantityPerUnit =
-                        string.IsNullOrEmpty(QuantityPerUnit.Text) ? null : QuantityPerUnit.Text;
-                    if (string.IsNullOrEmpty(UnitPrice.Text))
-                    {
-                        item.UnitPrice = null;
-                    }
-                    else
-                    {
-                        item.UnitPrice = decimal.Parse(UnitPrice.Text);
-                    }
-                    if (string.IsNullOrEmpty(UnitsInStock.Text))
+                        string.IsNullOrEmpty(QuantityPerUnit.Text) ? null : QuantityPerUnit.Text; //NULL
+                    //UnitPrice can be NULL in database but NOT NULL when record is added in this CRUD page
+                    item.UnitPrice = decimal.Parse(UnitPrice.Text);
+                    if (string.IsNullOrEmpty(UnitsInStock.Text)) //NULL
                     {
                         item.UnitsInStock = null;
                     }
@@ -240,7 +239,7 @@ namespace WebApp.Pages
                     {
                         item.UnitsInStock = Int16.Parse(UnitsInStock.Text);
                     }
-                    if (string.IsNullOrEmpty(UnitsOnOrder.Text))
+                    if (string.IsNullOrEmpty(UnitsOnOrder.Text)) //NULL
                     {
                         item.UnitsOnOrder = null;
                     }
@@ -248,7 +247,7 @@ namespace WebApp.Pages
                     {
                         item.UnitsOnOrder = Int16.Parse(UnitsOnOrder.Text);
                     }
-                    if (string.IsNullOrEmpty(ReorderLevel.Text))
+                    if (string.IsNullOrEmpty(ReorderLevel.Text)) //NULL
                     {
                         item.ReorderLevel = null;
                     }
@@ -256,8 +255,8 @@ namespace WebApp.Pages
                     {
                         item.ReorderLevel = Int16.Parse(ReorderLevel.Text);
                     }
-                    item.Discontinued = false;
-                    int newID = sysmgr.Add(item);
+                    item.Discontinued = false; //NOT NULL
+                    int newID = sysmgr.Add(item); 
                     ID.Text = newID.ToString();
                     errormsgs.Add("Record has been added");
                     LoadMessageDisplay(errormsgs, "alert alert-success");
@@ -305,8 +304,9 @@ namespace WebApp.Pages
                         item.SupplierID = int.Parse(SupplierList.SelectedValue);
                     }
                     item.CategoryID = int.Parse(CategoryList.SelectedValue);
-                    item.QuantityPerUnit =
-                        string.IsNullOrEmpty(QuantityPerUnit.Text) ? null : QuantityPerUnit.Text;
+                    //item.QuantityPerUnit =
+                        //string.IsNullOrEmpty(QuantityPerUnit.Text) ? null : QuantityPerUnit.Text;
+                    item.QuantityPerUnit = QuantityPerUnit.Text;
                     if (string.IsNullOrEmpty(UnitPrice.Text))
                     {
                         item.UnitPrice = null;

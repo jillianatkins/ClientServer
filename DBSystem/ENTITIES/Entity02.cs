@@ -18,6 +18,19 @@ namespace DBSystem.ENTITIES
         public int? SupplierID { get; set; }
         public int? CategoryID { get; set; }
         public string QuantityPerUnit { get; set; }
+
+        //private string _QuantityPerUnit;
+        //public string QuantityPerUnit
+        //{
+        //    get
+        //    {
+        //        return _QuantityPerUnit;
+        //    }
+        //    set
+        //    {
+        //        _QuantityPerUnit = string.IsNullOrEmpty(value) ? null : value;
+        //    }
+        //}
         public decimal? UnitPrice { get; set; }
         public Int16? UnitsInStock { get; set; }
         public Int16? UnitsOnOrder { get; set; }
