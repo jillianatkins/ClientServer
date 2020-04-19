@@ -73,11 +73,10 @@
             runat="server" required/>
         <br />
         <br />
-        <button id="Button1"
-            onserverclick="Button_Click"
-            runat="server">
-            Click Me
-        </button>
+        <input type="button" 
+            onserverclick="Button_Click" 
+            runat="server" 
+            value="Click Me!">
         <br />
         <br />
         <label ID="Label2"
