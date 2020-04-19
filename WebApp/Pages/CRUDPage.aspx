@@ -129,6 +129,11 @@
             </asp:DataList>
         </div>
     </div>
+    <div class="row">
+        <div class="offset-2"> 
+            <label ID="LabelMessage1" name="LabelMessage1" runat="server" />
+        </div>
+    </div>
     <script type="text/javascript">
         function CallFunction() {
             return confirm("Are you sure you wish to delete this record?");

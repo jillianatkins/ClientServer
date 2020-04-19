@@ -21,10 +21,13 @@ namespace WebApp.Pages
         List<string> errormsgs = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
+            errormsgs.Clear();
             Message.DataSource = null;
             Message.DataBind();
             if (!Page.IsPostBack)
             {
+                errormsgs.Add("IsPostBack = False");
+                LoadMessageDisplay(errormsgs, "alert alert-info");
                 pagenum = Request.QueryString["page"];
                 pid = Request.QueryString["pid"];
                 add = Request.QueryString["add"];
@@ -87,6 +90,11 @@ namespace WebApp.Pages
                     }
                 }
             }
+            else
+            {
+                errormsgs.Add("IsPostBack = True");
+                
+            }
         }
         protected Exception GetInnerException(Exception ex)
         {
@@ -101,6 +109,13 @@ namespace WebApp.Pages
             Message.CssClass = cssclass;
             Message.DataSource = errormsglist;
             Message.DataBind();
+            LabelMessage1.InnerHtml = "";
+            for (int i = 0; i <= errormsglist.Count - 1; i++)
+            {
+                LabelMessage1.InnerHtml += "<br />"
+                                        + errormsglist[i];
+            }
+            
         }
         protected void BindCategoryList()
         {
@@ -205,7 +220,7 @@ namespace WebApp.Pages
         protected void Add_Click(object sender, EventArgs e)
         {
             Validation(sender, e);
-            if (errormsgs.Count > 0)
+            if (errormsgs.Count > 1)
             {
                 LoadMessageDisplay(errormsgs, "alert alert-info");
             }
@@ -283,7 +298,7 @@ namespace WebApp.Pages
                 errormsgs.Add("Id is invalid");
             }
             Validation(sender, e);
-            if (errormsgs.Count > 0)
+            if (errormsgs.Count > 1)
             {
                 LoadMessageDisplay(errormsgs, "alert alert-info");
             }
@@ -364,7 +379,7 @@ namespace WebApp.Pages
             {
                 errormsgs.Add("Search for a record to delete");
             }
-            if (errormsgs.Count > 0)
+            if (errormsgs.Count > 1)
             {
                 LoadMessageDisplay(errormsgs, "alert alert-info");
             }
