@@ -35,10 +35,10 @@
             }
             void Button_Click(Object sender, EventArgs e)
             {
-                Label1.Text = "You selected:";
-                Label1.Text += "<br /> &nbsp;&nbsp; SelectedIndex = "
+                Label2.InnerHtml = "You selected:";
+                Label2.InnerHtml += "<br /> &nbsp;&nbsp; SelectedIndex = "
                                     + Select1.SelectedIndex;
-                Label1.Text += "<br /> &nbsp;&nbsp; SelectedValue = "
+                Label2.InnerHtml += "<br /> &nbsp;&nbsp; SelectedValue = "
                                     + Select1.Value;
                 
 
@@ -46,9 +46,9 @@
                 {
                     if (Select1.Items[i].Selected)
                     {
-                        Label1.Text += "<br /> &nbsp;&nbsp; Item Text = "
+                        Label2.InnerHtml += "<br /> &nbsp;&nbsp; Item Text = "
                                     + Select1.Items[i].Text;
-                        Label1.Text += "<br /> &nbsp;&nbsp; Item Value = "
+                        Label2.InnerHtml += "<br /> &nbsp;&nbsp; Item Value = "
                                     + Select1.Items[i].Value;
                     }
                 }
@@ -69,12 +69,12 @@
         <br />
         <button id="Button1"
             onserverclick="Button_Click"
-            runat="server" value="Submit" >
+            runat="server">
             Click Me
         </button>
         <br />
         <br />
-        <asp:Label ID="Label1"
+        <label ID="Label2"
             runat="server" />
     </body>
     </html>
