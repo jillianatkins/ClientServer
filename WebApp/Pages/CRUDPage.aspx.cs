@@ -304,9 +304,8 @@ namespace WebApp.Pages
                         item.SupplierID = int.Parse(SupplierList.SelectedValue);
                     }
                     item.CategoryID = int.Parse(CategoryList.SelectedValue);
-                    //item.QuantityPerUnit =
-                        //string.IsNullOrEmpty(QuantityPerUnit.Text) ? null : QuantityPerUnit.Text;
-                    item.QuantityPerUnit = QuantityPerUnit.Text;
+                    item.QuantityPerUnit =
+                        string.IsNullOrEmpty(QuantityPerUnit.Text) ? null : QuantityPerUnit.Text;
                     if (string.IsNullOrEmpty(UnitPrice.Text))
                     {
                         item.UnitPrice = null;
