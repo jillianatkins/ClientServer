@@ -14,8 +14,10 @@
         <script runat="server">
             void Page_Load(Object sender, EventArgs e)
             {
+                Label2.InnerHtml = "";
                 if (!IsPostBack)
                 {
+                    Label2.InnerHtml += "IsPostBack = False";
                     string ConnectString = "server=localhost;database=Northwind_CPSC1517;integrated security=SSPI";
                     string QueryString = "select * from Products";
                     SqlConnection myConnection = new SqlConnection(ConnectString);
@@ -30,17 +32,21 @@
                     myitem.Value = "0";
                     myitem.Text = "select...";
                     Select1.Items.Insert(0, myitem);
-                    
+
+                }
+                else
+                {
+                    Label2.InnerHtml += "IsPostBack = True";
                 }
             }
             void Button_Click(Object sender, EventArgs e)
             {
-                Label2.InnerHtml = "You selected:";
+                Label2.InnerHtml += "<br /> You selected:";
                 Label2.InnerHtml += "<br /> &nbsp;&nbsp; SelectedIndex = "
                                     + Select1.SelectedIndex;
                 Label2.InnerHtml += "<br /> &nbsp;&nbsp; SelectedValue = "
                                     + Select1.Value;
-                
+
 
                 for (int i = 0; i <= Select1.Items.Count - 1; i++)
                 {
