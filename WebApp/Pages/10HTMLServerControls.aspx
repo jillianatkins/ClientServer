@@ -36,9 +36,9 @@
             void Button_Click(Object sender, EventArgs e)
             {
                 Label1.Text = "You selected:";
-                Label1.Text += "<br /> &nbsp;&nbsp; - SelectedIndex = "
+                Label1.Text += "<br /> &nbsp;&nbsp; SelectedIndex = "
                                     + Select1.SelectedIndex;
-                Label1.Text += "<br /> &nbsp;&nbsp; - SelectedValue = "
+                Label1.Text += "<br /> &nbsp;&nbsp; SelectedValue = "
                                     + Select1.Value;
                 
 
