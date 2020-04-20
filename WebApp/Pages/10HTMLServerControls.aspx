@@ -32,12 +32,34 @@
                     myitem.Value = "0";
                     myitem.Text = "select...";
                     Select1.Items.Insert(0, myitem);
+
+                    var numrows = ds.Tables[1].Rows.Count;
+                    var numcols = ds.Tables[1].Columns.Count;
                     StringBuilder sb = new StringBuilder();
                     sb.Append("<h1>Testing</h1>");
-                    //label1.Controls.Add(sb.ToString);
+                    var temp = label1.Parent;
+                    HtmlTable mytable = new HtmlTable();
+                    temp.Controls.Add(mytable);
                     HtmlTableRow mytablerow = new HtmlTableRow();
-                    //mytablerow.
-                    Table1.Rows.Add(mytablerow);
+                    mytable.Rows.Add(mytablerow);
+                    
+                    for (int i = 0; i < numrows; i++)
+                    {
+                        TableRow tr = new TableRow();
+                        for (int j = 0; j < numcols; j++)
+                        {
+                            TableCell tc = new TableCell();
+                            TextBox txtBox = new TextBox();
+                            txtBox.Text = "RowNo:" + i + " " + "ColumnNo:" + " " + j;
+                            // Add the control to the TableCell
+                            tc.Controls.Add(txtBox);
+                            // Add the TableCell to the TableRow
+                            tr.Cells.Add(tc);
+                        }
+                        // Add the TableRow to the Table
+                        //mytable.Rows.Add(tr);
+                    }
+
                     //Table1.DataSourceControl = ds;
 
                 }
