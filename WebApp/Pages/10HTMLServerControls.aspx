@@ -32,6 +32,13 @@
                     myitem.Value = "0";
                     myitem.Text = "select...";
                     Select1.Items.Insert(0, myitem);
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("<h1>Testing</h1>");
+                    //label1.Controls.Add(sb.ToString);
+                    HtmlTableRow mytablerow = new HtmlTableRow();
+                    //mytablerow.
+                    Table1.Rows.Add(mytablerow);
+                    //Table1.DataSourceControl = ds;
 
                 }
                 else
@@ -61,13 +68,15 @@
             }
         </script>
     </head>
-    <body>
+    <body id="Body1">
+        <Label id="label1" 
+            runat="server"/>
         <h3>HtmlSelect Example </h3>
 
         Select item from the list.
         <br />
         <br />
-
+        
         <select id="Select1"
             multiple="false"
             runat="server" required/>
@@ -81,6 +90,10 @@
         <br />
         <label ID="Label2"
             runat="server" />
+        <br />
+        <br />
+        <table id="Table1" 
+            runat="server"/>
     </body>
     </html>
 </asp:Content>
