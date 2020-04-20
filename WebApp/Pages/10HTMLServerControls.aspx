@@ -38,41 +38,25 @@
 
                     var numrows = ds.Tables[0].Rows.Count;
                     var numcols = ds.Tables[0].Columns.Count;
-                    StringBuilder sb = new StringBuilder();
-                    sb.Append("<h1>Testing</h1>");
                     var temp = label1.Parent;
                     HtmlTable mytable = new HtmlTable();
-                    
                     mytable.Attributes.Add("class", "table table-striped");
                     mytable.Attributes.Add("cellspacing", "0");
                     mytable.Attributes.Add("border", "1");
                     mytable.Attributes.Add("rules", "rows");
                     mytable.Attributes.Add("style", "border-style:none; border-collapse:collapse");
-                    
-                    //mytable.a
                     temp.Controls.Add(mytable);
-
                     for (int i = 0; i < numrows; i++)
                     {
                         HtmlTableRow tr = new HtmlTableRow();
-                        
                         for (int j = 0; j < numcols; j++)
                         {
                             HtmlTableCell tc = new HtmlTableCell();
-                            TextBox txtBox = new TextBox();
                             tc.InnerText = ds.Tables[0].Rows[i][j].ToString();
-                            //txtBox.Text = "RowNo:" + i + " " + "ColumnNo:" + " " + j;
-                            // Add the control to the TableCell
-                            //tc.Controls.Add(txtBox);
-                            // Add the TableCell to the TableRow
                             tr.Cells.Add(tc);
                         }
-                        //Add the TableRow to the Table
                         mytable.Rows.Add(tr);
                     }
-
-                    //Table1.DataSourceControl = ds;
-
                 }
                 else
                 {
