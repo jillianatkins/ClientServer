@@ -10,6 +10,9 @@
     <html xmlns="http://www.w3.org/1999/xhtml">
 
     <head>
+        <script src="~/Scripts/jquery-3.4.1.js"></script>
+        <link href="~/Content/bootstrap.css" rel="stylesheet" />
+        <script src="~/Scripts/bootstrap.js"></script>
         <title>HTML Server Controls CodeBehindNo</title>
         <script runat="server">
             void Page_Load(Object sender, EventArgs e)
@@ -39,20 +42,28 @@
                     sb.Append("<h1>Testing</h1>");
                     var temp = label1.Parent;
                     HtmlTable mytable = new HtmlTable();
-                    mytable.Attributes.CssStyle.Value = "table table-striped";
+                    
+                    mytable.Attributes.Add("class", "table table-striped");
+                    mytable.Attributes.Add("cellspacing", "0");
+                    mytable.Attributes.Add("border", "1");
+                    mytable.Attributes.Add("rules", "rows");
+                    mytable.Attributes.Add("style", "border-style:none; border-collapse:collapse");
+                    
+                    //mytable.a
                     temp.Controls.Add(mytable);
 
                     for (int i = 0; i < numrows; i++)
                     {
                         HtmlTableRow tr = new HtmlTableRow();
+                        
                         for (int j = 0; j < numcols; j++)
                         {
                             HtmlTableCell tc = new HtmlTableCell();
                             TextBox txtBox = new TextBox();
-                            txtBox.Text = ds.Tables[0].Rows[i][j].ToString();
+                            tc.InnerText = ds.Tables[0].Rows[i][j].ToString();
                             //txtBox.Text = "RowNo:" + i + " " + "ColumnNo:" + " " + j;
                             // Add the control to the TableCell
-                            tc.Controls.Add(txtBox);
+                            //tc.Controls.Add(txtBox);
                             // Add the TableCell to the TableRow
                             tr.Cells.Add(tc);
                         }
