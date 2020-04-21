@@ -4,6 +4,7 @@
 
     <%@ Import Namespace="System.Data" %>
     <%@ Import Namespace="System.Data.SqlClient" %>
+    <%@ Import Namespace="System.Web.UI.HtmlControls" %>
 
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -21,7 +22,8 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            var table = $('#table_id').DataTable({
+            generate_table();
+            var table = $('#table1').DataTable({
                 "columnDefs": [{
                     "targets": -1,
                     "data": null,
@@ -37,38 +39,47 @@
 
 
         function generate_table() {
-  // get the reference for the body
-  var body = document.getElementsByTagName("body")[0];
-
-  // creates a <table> element and a <tbody> element
-  var tbl = document.createElement("table");
-  var tblBody = document.createElement("tbody");
-
-  // creating all cells
-  for (var i = 0; i < 2; i++) {
-    // creates a table row
-    var row = document.createElement("tr");
-
-    for (var j = 0; j < 2; j++) {
-      // Create a <td> element and a text node, make the text
-      // node the contents of the <td>, and put the <td> at
-      // the end of the table row
-      var cell = document.createElement("td");
-      var cellText = document.createTextNode("cell in row "+i+", column "+j);
-      cell.appendChild(cellText);
-      row.appendChild(cell);
-    }
-
-    // add the row to the end of the table body
-    tblBody.appendChild(row);
-  }
-
-  // put the <tbody> in the <table>
-  tbl.appendChild(tblBody);
-  // appends <table> into <body>
-  body.appendChild(tbl);
-  // sets the border attribute of tbl to 2;
-  tbl.setAttribute("border", "2");
+            // get the reference for the body
+            var body = document.getElementsByTagName("body")[0];
+            // creates a <table> element and a <tbody> element
+            var tbl = document.createElement("table");
+            var tblHead = document.createElement("thead");
+            var row = document.createElement("tr");
+            var cell = document.createElement("th");
+            var cellText = document.createTextNode("header1");
+            cell.appendChild(cellText);
+            row.appendChild(cell);
+            cell = document.createElement("th");
+            cellText = document.createTextNode("header2");
+            cell.appendChild(cellText);
+            row.appendChild(cell);
+            tblHead.appendChild(row);
+            var tblBody = document.createElement("tbody");
+            // creating all cells
+            for (var i = 0; i < 2; i++) {
+            // creates a table row
+                var row = document.createElement("tr");
+                for (var j = 0; j < 2; j++) {
+                // Create a <td> element and a text node, make the text
+                // node the contents of the <td>, and put the <td> at
+                // the end of the table row
+                var cell = document.createElement("td");
+                var cellText = document.createTextNode("cell in row "+i+", column "+j);
+                cell.appendChild(cellText);
+                row.appendChild(cell);
+                }
+            // add the row to the end of the table body
+            tblBody.appendChild(row);
+            }
+            tbl.appendChild(tblHead);
+            // put the <tbody> in the <table>
+            tbl.appendChild(tblBody);
+            // appends <table> into <body>
+            body.appendChild(tbl);
+            // sets the border attribute of tbl to 2;
+            //tbl.setAttribute("border", "2");
+            tbl.setAttribute("class", "display");
+            tbl.setAttribute("id", "table1");
         }
         </script>
 
@@ -78,6 +89,59 @@
                 Label2.InnerHtml = "";
                 if (!IsPostBack)
                 {
+
+                    DataTable dt = new DataTable();
+                    dt.Columns.AddRange(new DataColumn[3] { new DataColumn("Id", typeof(int)),
+                                new DataColumn("Name", typeof(string)),
+                                new DataColumn("Country",typeof(string)) });
+                    dt.Rows.Add(1, "John Hammond", "United States");
+                    dt.Rows.Add(2, "Mudassar Khan", "India");
+                    dt.Rows.Add(3, "Suzanne Mathews", "France");
+                    dt.Rows.Add(4, "Robert Schidner", "Russia");
+ 
+                    StringBuilder sb = new StringBuilder();
+                    var temp1 = label1.Parent;
+                    HtmlTable mytable1 = new HtmlTable();
+                    mytable1.Attributes.Add("class", "table table-striped");
+                    mytable1.Attributes.Add("id", "table_id1");
+                    mytable1.Attributes.Add("cellspacing", "0");
+                    mytable1.Attributes.Add("border", "1");
+                    mytable1.Attributes.Add("rules", "rows");
+                    mytable1.Attributes.Add("style", "border-style:none; border-collapse:collapse");
+                    temp1.Controls.Add(mytable1);
+                    //Table start.
+                    //sb.Append("<table cellpadding='5' cellspacing='0' style='border: 1px solid #ccc;font-size: 9pt;font-family:Arial'>");
+                    //sb.Append("<thead>");
+                    //Adding HeaderRow.
+                    sb.Append("<tr>");
+                    foreach (DataColumn column in dt.Columns)
+                    {
+                        sb.Append("<th style='background-color: #B8DBFD;border: 1px solid #ccc'>" + column.ColumnName + "</th>");
+                    }
+                    sb.Append("</tr>");
+                    sb.Append("</thead>");
+                    
+                    
+                    
+                    sb.Append("<tbody>");
+ 
+                    //Adding DataRow.
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        sb.Append("<tr>");
+                        foreach (DataColumn column in dt.Columns)
+                        {
+                            sb.Append("<td style='width:100px;border: 1px solid #ccc'>" + row[column.ColumnName].ToString() + "</td>");
+                        }
+                        sb.Append("</tr>");
+                    }
+ 
+                    //Table end.
+                    sb.Append("</tbody>");
+                    sb.Append("</table>");
+                    Label3.InnerHtml = sb.ToString();
+
+
                     Label2.InnerHtml += "IsPostBack = False";
                     string ConnectString = "server=localhost;database=Northwind_CPSC1517;integrated security=SSPI";
                     string QueryString = "select * from Products";
@@ -175,25 +239,29 @@
         <label ID="Label2"
             runat="server" />
         <br />
+        <label ID="Label3"
+            runat="server" />
+        <br />
+        <table id="table_id2" class="display"></table>
         <br />
         <table id="table_id" class="display">
-    <thead>
-        <tr>
-            <th>Column 1</th>
-            <th>Column 2</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Row 1 Data 1</td>
-            <td>Row 1 Data 2</td>
-        </tr>
-        <tr>
-            <td>Row 2 Data 1</td>
-            <td>Row 2 Data 2</td>
-        </tr>
-    </tbody>
-</table>
+            <thead id="thead1">
+                <tr>
+                    <th>Column 1</th>
+                    <th>Column 2</th>
+                </tr>
+            </thead>
+            <tbody id="tbody1">
+                <tr>
+                    <td>Row 1 Data 1</td>
+                    <td>Row 1 Data 2</td>
+                </tr>
+                <tr>
+                    <td>Row 2 Data 1</td>
+                    <td>Row 2 Data 2</td>
+                </tr>
+            </tbody>
+        </table>
     </body>
     </html>
 </asp:Content>
