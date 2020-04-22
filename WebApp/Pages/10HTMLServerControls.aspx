@@ -98,11 +98,21 @@
         <script runat="server">
             void Page_Load(Object sender, EventArgs e)
             {
+
+                string fileIndex = "This is fileIndex";
+                string FileNames = "FileNames";
+                string FileExtensions = "FileExtensions";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "paramFN1", "getFileDetailsToHidden('" + fileIndex + "','" + FileNames + "','" + FileExtensions + "');", true);
+
+                string val = Request.Form["hdnFileIndex"];
+
+                Response.Write("fileIndex's value:  " + val);
+
                 Label2.InnerHtml = "";
                 if (!IsPostBack)
                 {
 
-                    
+
 
 
                     Label2.InnerHtml += "IsPostBack = False";
@@ -136,8 +146,8 @@
                     for (int i = 0; i < numcols; i++)
                     {
                         HtmlTableCell tc = new HtmlTableCell();
-                            tc.InnerText = ds.Tables[0].Columns[i].ColumnName.ToString();
-                            trh.Cells.Add(tc);
+                        tc.InnerText = ds.Tables[0].Columns[i].ColumnName.ToString();
+                        trh.Cells.Add(tc);
                     }
                     mytable.Rows.Add(trh);
                     for (int i = 0; i < numrows; i++)
@@ -177,6 +187,10 @@
                     }
                 }
             }
+            void Button1_Click(Object sender, EventArgs e)
+            {
+
+            }
         </script>
     </head>
     <body id="Body1">
@@ -186,7 +200,20 @@
         <input type="button" value="Generate a table." onclick="generate_table()">
         Select item from the list.
         <br />
+        
+
+    <input id="hdnFileIndex" name="hdnFileIndex" type="text" />
+    <input id="hdnFileNames" type="text" />
+    <input id="hdnFileExtensions" type="text" />
+    <input id="Submit1" type="submit" value="submit" runat="server" /> 
         <br />
+        <script type="text/javascript">
+            function getFileDetailsToHidden(pFileIndex, pFileNames, pFileExtensions) {
+                document.getElementById('hdnFileIndex').value = pFileIndex;
+                document.getElementById('hdnFileNames').value = pFileNames;
+                document.getElementById('hdnFileExtensions').value = pFileExtensions;
+            }
+    </script>
         
         <select id="Select1"
             multiple="false"
