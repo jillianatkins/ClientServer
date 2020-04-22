@@ -5,6 +5,8 @@
     <%@ Import Namespace="System.Data" %>
     <%@ Import Namespace="System.Data.SqlClient" %>
     <%@ Import Namespace="System.Web.UI.HtmlControls" %>
+    <%@ Import Namespace="DBSystem.BLL" %>
+    <%@ Import Namespace="DBSystem.ENTITIES" %>
 
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -38,10 +40,32 @@
         });
 
 
+        var sel = document.createElement('select');
+        sel.name = 'drop1';
+        sel.id = 'Select1';
+
+        var cars = [
+            "volvo",
+            "saab",
+            "mercedes",
+            "audi"
+        ];
+
+        var options_str = "";
+
+        cars.forEach(function (car) {
+            options_str += '<option value="' + car + '">' + car + '</option>';
+        });
+
+        sel.innerHTML = options_str;
+
+
+        window.onload = function () {
+            document.body.appendChild(sel);
+        };
+
         function generate_table() {
-            // get the reference for the body
             var body = document.getElementsByTagName("body")[0];
-            // creates a <table> element and a <tbody> element
             var tbl = document.createElement("table");
             var tblHead = document.createElement("thead");
             var row = document.createElement("tr");
@@ -55,29 +79,19 @@
             row.appendChild(cell);
             tblHead.appendChild(row);
             var tblBody = document.createElement("tbody");
-            // creating all cells
             for (var i = 0; i < 20; i++) {
-            // creates a table row
                 var row = document.createElement("tr");
                 for (var j = 0; j < 2; j++) {
-                // Create a <td> element and a text node, make the text
-                // node the contents of the <td>, and put the <td> at
-                // the end of the table row
-                var cell = document.createElement("td");
-                var cellText = document.createTextNode("cell in row "+i+", column "+j);
-                cell.appendChild(cellText);
-                row.appendChild(cell);
+                    var cell = document.createElement("td");
+                    var cellText = document.createTextNode("cell in row "+i+", column "+j);
+                    cell.appendChild(cellText);
+                    row.appendChild(cell);
                 }
-            // add the row to the end of the table body
             tblBody.appendChild(row);
             }
             tbl.appendChild(tblHead);
-            // put the <tbody> in the <table>
             tbl.appendChild(tblBody);
-            // appends <table> into <body>
             body.appendChild(tbl);
-            // sets the border attribute of tbl to 2;
-            //tbl.setAttribute("border", "2");
             tbl.setAttribute("class", "display");
             tbl.setAttribute("id", "table1");
             var table = $('#table1').DataTable({
@@ -96,8 +110,11 @@
         </script>
 
         <script runat="server">
+
             void Page_Load(Object sender, EventArgs e)
             {
+
+                BindList();
 
                 string fileIndex = "This is fileIndex";
                 string FileNames = "FileNames";
@@ -106,7 +123,7 @@
 
                 string val = Request.Form["hdnFileIndex"];
 
-                Response.Write("fileIndex's value:  " + val);
+                //Response.Write("fileIndex's value:  " + val);
 
                 Label2.InnerHtml = "";
                 if (!IsPostBack)
@@ -118,53 +135,26 @@
                     Label2.InnerHtml += "IsPostBack = False";
                     string ConnectString = "server=localhost;database=Northwind_CPSC1517;integrated security=SSPI";
                     string QueryString = "select * from Products";
+                    //var QueryString = "SELECT ProductID, ProductName, "
+                    //    + "CategoryID, UnitPrice, UnitsInStock, Discontinued "
+                    //    + "FROM Products "
+                    //    + "WHERE ProductName LIKE @0 "
+                    //    + "ORDER BY ProductName";
                     SqlConnection myConnection = new SqlConnection(ConnectString);
                     SqlDataAdapter myCommand = new SqlDataAdapter(QueryString, myConnection);
                     DataSet ds = new DataSet();
                     myCommand.Fill(ds, "Products");
-                    Select1.DataSource = ds;
-                    Select1.DataTextField = "ProductName";
-                    Select1.DataValueField = "ProductID";
-                    Select1.DataBind();
-                    ListItem myitem = new ListItem();
-                    myitem.Value = "0";
-                    myitem.Text = "select...";
-                    Select1.Items.Insert(0, myitem);
+                    //Select1.DataSource = ds;
+                    //Select1.DataTextField = "ProductName";
+                    //Select1.DataValueField = "ProductID";
+                    //Select1.DataBind();
+                    //ListItem myitem = new ListItem();
+                    //myitem.Value = "0";
+                    //myitem.Text = "select...";
+                    //Select1.Items.Insert(0, myitem);
 
                     var numrows = ds.Tables[0].Rows.Count;
                     var numcols = ds.Tables[0].Columns.Count;
-                    var temp = label1.Parent;
-                    HtmlTable mytable = new HtmlTable();
-                    mytable.Attributes.Add("class", "display");
-                    mytable.Attributes.Add("id", "table_id1");
-                    mytable.Attributes.Add("cellspacing", "0");
-                    mytable.Attributes.Add("border", "1");
-                    mytable.Attributes.Add("rules", "rows");
-                    mytable.Attributes.Add("style", "border-style:none; border-collapse:collapse");
-                    temp.Controls.Add(mytable);
-                    //mytable.InnerHtml += "<thead>";
-                    HtmlTableRow trh = new HtmlTableRow();
-                    for (int i = 0; i < numcols; i++)
-                    {
-                        HtmlTableCell tc = new HtmlTableCell();
-                        tc.InnerText = ds.Tables[0].Columns[i].ColumnName.ToString();
-                        trh.Cells.Add(tc);
-                    }
-                    mytable.Rows.Add(trh);
-                    //mytable.InnerHtml += "</thead>";
-                    for (int i = 0; i < numrows; i++)
-                    {
-                        HtmlTableRow tr = new HtmlTableRow();
-                        for (int j = 0; j < numcols; j++)
-                        {
-                            HtmlTableCell tc = new HtmlTableCell();
-                            tc.InnerText = ds.Tables[0].Rows[i][j].ToString();
-                            tr.Cells.Add(tc);
-                        }
-                        mytable.Rows.Add(tr);
-                    }
-
-
                     var html = "";
                     html += "<table class='display' id='table5'>";
                     html += "<thead>";
@@ -191,13 +181,73 @@
                     }
                     html += "</tbody>";
                     html += "</table>";
-                    label1.InnerHtml = html;
+                    //label1.InnerHtml = html;
                 }
                 else
                 {
                     Label2.InnerHtml += "IsPostBack = True";
                 }
             }
+            protected void BindList()
+            {
+                try
+                {
+                    Controller01 sysmgr = new Controller01();
+                    List<Entity01> info = null;
+                    info = sysmgr.List();
+                    info.Sort((x, y) => x.CategoryName.CompareTo(y.CategoryName));
+                    var html = "";
+                    html += "<label class='label' for='CategoryList'>Category:  </label>&nbsp;&nbsp;";
+                    html += "<select id='CategoryList' name='CategoryList' runat='server'>";
+                    html += "<option value='0'>select category...</option>";
+                    for (int i = 0; i < info.Count; i++)
+                    {
+                        html += "<option value='";
+                        html += info[i].CategoryID.ToString();
+                        html += "'>";
+                        html += info[i].CategoryName.ToString();
+                        html += "</option>";
+                    }
+                    html += "</select>";
+                    label1.InnerHtml = html;
+
+
+
+
+
+                    //            @foreach (var item in categoryrecords)
+                    //    {
+
+                    //                if (choice == item.CategoryID.ToString())
+                    //                {
+                    //            <option value="@item.CategoryID" selected>@item.CategoryName</option>
+                    //                }
+                    //                else
+                    //                {
+                    //            <option value="@item.CategoryID">@item.CategoryName</option>
+                    //                }
+                    //            }
+                    //</select>
+
+
+
+
+
+                    //Select1.DataSource = info;
+                    //Select1.DataTextField = "CategoryName";
+                    //Select1.DataValueField = "CategoryID";
+                    //Select1.DataBind();
+                    //ListItem myitem = new ListItem();
+                    //myitem.Value = "0";
+                    //myitem.Text = "select...";
+                    //Select1.Items.Insert(0, myitem);
+                }
+                catch (Exception ex)
+                {
+                    MessageLabel.InnerHtml = ex.Message;
+                }
+            }
+
             void Button_Click(Object sender, EventArgs e)
             {
                 Label2.InnerHtml += "<br /> You selected:";
@@ -248,7 +298,8 @@
         
         <select id="Select1"
             multiple="false"
-            runat="server" required/>
+            runat="server" required>
+        </select>
         <br />
         <br />
         <input type="button" 
@@ -260,7 +311,7 @@
         <label ID="Label2"
             runat="server" />
         <br />
-        <label ID="Label3"
+        <label ID="MessageLabel"
             runat="server" />
         <br />
     </body>
