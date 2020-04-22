@@ -21,21 +21,21 @@
         <title>HTML Server Controls CodeBehindNo</title>
 
     <script type="text/javascript">
-        //$(document).ready(function () {
-        //    generate_table();
-        //    var table = $('#table_id').DataTable({
-        //        "columnDefs": [{
-        //            "targets": -1,
-        //            "data": null,
-        //            "defaultContent": "<button>Click!</button>"
-        //        }]
-        //    });
+        $(document).ready(function () {
+            generate_table();
+            var table = $('#table5').DataTable({
+                "columnDefs": [{
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": "<button>Click!</button>"
+                }]
+            });
 
-        //    $('#table_id tbody').on('click', 'button', function () {
-        //        var data = table.row($(this).parents('tr')).data();
-        //        alert(data[0] + "'s salary is: " + data[0]);
-        //    });
-        //});
+            $('#table5 tbody').on('click', 'button', function () {
+                var data = table.row($(this).parents('tr')).data();
+                alert(data[0] + "'s salary is: " + data[0]);
+            });
+        });
 
 
         function generate_table() {
@@ -56,7 +56,7 @@
             tblHead.appendChild(row);
             var tblBody = document.createElement("tbody");
             // creating all cells
-            for (var i = 0; i < 2; i++) {
+            for (var i = 0; i < 20; i++) {
             // creates a table row
                 var row = document.createElement("tr");
                 for (var j = 0; j < 2; j++) {
@@ -135,13 +135,14 @@
                     var numcols = ds.Tables[0].Columns.Count;
                     var temp = label1.Parent;
                     HtmlTable mytable = new HtmlTable();
-                    mytable.Attributes.Add("class", "table table-striped");
+                    mytable.Attributes.Add("class", "display");
                     mytable.Attributes.Add("id", "table_id1");
                     mytable.Attributes.Add("cellspacing", "0");
                     mytable.Attributes.Add("border", "1");
                     mytable.Attributes.Add("rules", "rows");
                     mytable.Attributes.Add("style", "border-style:none; border-collapse:collapse");
                     temp.Controls.Add(mytable);
+                    //mytable.InnerHtml += "<thead>";
                     HtmlTableRow trh = new HtmlTableRow();
                     for (int i = 0; i < numcols; i++)
                     {
@@ -150,6 +151,7 @@
                         trh.Cells.Add(tc);
                     }
                     mytable.Rows.Add(trh);
+                    //mytable.InnerHtml += "</thead>";
                     for (int i = 0; i < numrows; i++)
                     {
                         HtmlTableRow tr = new HtmlTableRow();
@@ -161,6 +163,35 @@
                         }
                         mytable.Rows.Add(tr);
                     }
+
+
+                    var html = "";
+                    html += "<table class='display' id='table5'>";
+                    html += "<thead>";
+                    html += "<tr>";
+                    for (int i = 0; i < numcols; i++)
+                    {
+                        html += "<th>";
+                        html += ds.Tables[0].Columns[i].ColumnName.ToString();
+                        html += "</th>";
+                    }
+                    html += "</tr>";
+                    html += "</thead>";
+                    html += "<tbody>";
+                    for (int i = 0; i < numrows; i++)
+                    {
+                        html += "<tr>";
+                        for (int j = 0; j < numcols; j++)
+                        {
+                            html += "<td>";
+                            html += ds.Tables[0].Rows[i][j].ToString();
+                            html += "</td>";
+                        }
+                        html += "</tr>";
+                    }
+                    html += "</tbody>";
+                    html += "</table>";
+                    label1.InnerHtml = html;
                 }
                 else
                 {
@@ -232,26 +263,6 @@
         <label ID="Label3"
             runat="server" />
         <br />
-        <table id="table_id2" class="display"></table>
-        <br />
-        <table id="table_id" class="display">
-            <thead id="thead1">
-                <tr>
-                    <th>Column 1</th>
-                    <th>Column 2</th>
-                </tr>
-            </thead>
-            <tbody id="tbody1">
-                <tr>
-                    <td>Row 1 Data 1</td>
-                    <td>Row 1 Data 2</td>
-                </tr>
-                <tr>
-                    <td>Row 2 Data 1</td>
-                    <td>Row 2 Data 2</td>
-                </tr>
-            </tbody>
-        </table>
     </body>
     </html>
 </asp:Content>
