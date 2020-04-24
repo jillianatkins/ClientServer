@@ -26,8 +26,6 @@ namespace WebApp.Pages
             Message.DataBind();
             if (!Page.IsPostBack)
             {
-                errormsgs.Add("IsPostBack = False");
-                LoadMessageDisplay(errormsgs, "alert alert-info");
                 pagenum = Request.QueryString["page"];
                 pid = Request.QueryString["pid"];
                 add = Request.QueryString["add"];
@@ -58,42 +56,37 @@ namespace WebApp.Pages
                     }
                     else
                     {
-                        ID.Text = info.ProductID.ToString(); //NOT NULL
-                        Name.Text = info.ProductName; //NOT NULL
-                        if (info.CategoryID.HasValue) //NULL
+                        ID.Text = info.ProductID.ToString(); //NOT NULL in Database
+                        Name.Text = info.ProductName; //NOT NULL in Database
+                        if (info.CategoryID.HasValue) //NULL in Database
                         {
                             CategoryList.SelectedValue = info.CategoryID.ToString();
                         }
                         else
                         {
-                            CategoryList.SelectedIndex = 0;
+                            CategoryList.SelectedValue = "0";
                         }
-                        if (info.SupplierID.HasValue) //NULL
+                        if (info.SupplierID.HasValue) //NULL in Database
                         {
                             SupplierList.SelectedValue = info.SupplierID.ToString();
                         }
                         else
                         {
-                            SupplierList.SelectedIndex = 0;
+                            SupplierList.SelectedValue = "0";
                         }
                         QuantityPerUnit.Text =
-                            info.QuantityPerUnit == null ? "" : info.QuantityPerUnit; //NULL
+                            info.QuantityPerUnit == null ? "" : info.QuantityPerUnit; //NULL in Database
                         UnitPrice.Text =
-                            info.UnitPrice.HasValue ? string.Format("{0:0.00}", info.UnitPrice.Value) : ""; //NULL
+                            info.UnitPrice.HasValue ? string.Format("{0:0.00}", info.UnitPrice.Value) : ""; //NULL in Database
                         UnitsInStock.Text =
-                            info.UnitsInStock.HasValue ? info.UnitsInStock.Value.ToString() : ""; //NULL
+                            info.UnitsInStock.HasValue ? info.UnitsInStock.Value.ToString() : ""; //NULL in Database
                         UnitsOnOrder.Text =
-                            info.UnitsOnOrder.HasValue ? info.UnitsOnOrder.Value.ToString() : ""; //NULL
+                            info.UnitsOnOrder.HasValue ? info.UnitsOnOrder.Value.ToString() : ""; //NULL in Database
                         ReorderLevel.Text =
-                            info.ReorderLevel.HasValue ? info.ReorderLevel.Value.ToString() : ""; //NULL
-                        Discontinued.Checked = info.Discontinued; //NOT NULL
+                            info.ReorderLevel.HasValue ? info.ReorderLevel.Value.ToString() : ""; //NULL in Database
+                        Discontinued.Checked = info.Discontinued; //NOT NULL in Database
                     }
                 }
-            }
-            else
-            {
-                errormsgs.Add("IsPostBack = True");
-                
             }
         }
         protected Exception GetInnerException(Exception ex)
@@ -129,7 +122,11 @@ namespace WebApp.Pages
                 CategoryList.DataTextField = nameof(Entity01.CategoryName);
                 CategoryList.DataValueField = nameof(Entity01.CategoryID);
                 CategoryList.DataBind();
-                CategoryList.Items.Insert(0, "select...");
+                ListItem myitem = new ListItem();
+                myitem.Value = "0";
+                myitem.Text = "select...";
+                CategoryList.Items.Insert(0, myitem);
+                //CategoryList.Items.Insert(0, "select...");
 
             }
             catch (Exception ex)
@@ -150,7 +147,11 @@ namespace WebApp.Pages
                 SupplierList.DataTextField = nameof(Entity03.ContactName);
                 SupplierList.DataValueField = nameof(Entity03.SupplierID);
                 SupplierList.DataBind();
-                SupplierList.Items.Insert(0, "select...");
+                ListItem myitem = new ListItem();
+                myitem.Value = "0";
+                myitem.Text = "select...";
+                SupplierList.Items.Insert(0, myitem);
+                //SupplierList.Items.Insert(0, "select...");
 
             }
             catch (Exception ex)
@@ -165,7 +166,7 @@ namespace WebApp.Pages
             {
                 errormsgs.Add("Name is required");
             }
-            if (CategoryList.SelectedIndex == 0)
+            if (CategoryList.SelectedValue == "0")
             {
                 errormsgs.Add("Category is required");
             }
@@ -174,7 +175,11 @@ namespace WebApp.Pages
                 errormsgs.Add("Quantity per Unit is limited to 20 characters");
             }
             double unitprice = 0;
-            if (!string.IsNullOrEmpty(UnitPrice.Text))
+            if (string.IsNullOrEmpty(UnitPrice.Text))
+            {
+                errormsgs.Add("Unit Price is required");
+            }
+            else
             {
                 if (double.TryParse(UnitPrice.Text, out unitprice))
                 {
@@ -187,10 +192,6 @@ namespace WebApp.Pages
                 {
                     errormsgs.Add("Unit Price must be a real number");
                 }
-            }
-            else
-            {
-                errormsgs.Add("Unit Price is required");
             }
         }
             protected void Back_Click(object sender, EventArgs e)
@@ -220,7 +221,7 @@ namespace WebApp.Pages
         protected void Add_Click(object sender, EventArgs e)
         {
             Validation(sender, e);
-            if (errormsgs.Count > 1)
+            if (errormsgs.Count > 0)
             {
                 LoadMessageDisplay(errormsgs, "alert alert-info");
             }
@@ -231,8 +232,8 @@ namespace WebApp.Pages
                     Controller02 sysmgr = new Controller02();
                     Entity02 item = new Entity02();
                     //No ProductID here as the database will give a new one back when we add
-                    item.ProductName = Name.Text.Trim(); //NOT NULL
-                    if (SupplierList.SelectedIndex == 0) //NULL
+                    item.ProductName = Name.Text.Trim(); //NOT NULL in Database
+                    if (SupplierList.SelectedValue == "0") //NULL in Database
                     {
                         item.SupplierID = null;
                     }
@@ -240,13 +241,13 @@ namespace WebApp.Pages
                     {
                         item.SupplierID = int.Parse(SupplierList.SelectedValue);
                     }
-                    //CategoryID can be NULL in database but NOT NULL when record is added in this CRUD page
+                    //CategoryID can be NULL in Database but NOT NULL when record is added in this CRUD page
                     item.CategoryID = int.Parse(CategoryList.SelectedValue);
                     item.QuantityPerUnit =
                         string.IsNullOrEmpty(QuantityPerUnit.Text) ? null : QuantityPerUnit.Text; //NULL
-                    //UnitPrice can be NULL in database but NOT NULL when record is added in this CRUD page
+                    //UnitPrice can be NULL in Database but NOT NULL when record is added in this CRUD page
                     item.UnitPrice = decimal.Parse(UnitPrice.Text);
-                    if (string.IsNullOrEmpty(UnitsInStock.Text)) //NULL
+                    if (string.IsNullOrEmpty(UnitsInStock.Text)) //NULL in Database
                     {
                         item.UnitsInStock = null;
                     }
@@ -254,7 +255,7 @@ namespace WebApp.Pages
                     {
                         item.UnitsInStock = Int16.Parse(UnitsInStock.Text);
                     }
-                    if (string.IsNullOrEmpty(UnitsOnOrder.Text)) //NULL
+                    if (string.IsNullOrEmpty(UnitsOnOrder.Text)) //NULL in Database
                     {
                         item.UnitsOnOrder = null;
                     }
@@ -262,7 +263,7 @@ namespace WebApp.Pages
                     {
                         item.UnitsOnOrder = Int16.Parse(UnitsOnOrder.Text);
                     }
-                    if (string.IsNullOrEmpty(ReorderLevel.Text)) //NULL
+                    if (string.IsNullOrEmpty(ReorderLevel.Text)) //NULL in Database
                     {
                         item.ReorderLevel = null;
                     }
@@ -270,10 +271,10 @@ namespace WebApp.Pages
                     {
                         item.ReorderLevel = Int16.Parse(ReorderLevel.Text);
                     }
-                    item.Discontinued = false; //NOT NULL
+                    item.Discontinued = false; //NOT NULL in Database
                     int newID = sysmgr.Add(item); 
                     ID.Text = newID.ToString();
-                    errormsgs.Add("Record has been added");
+                    errormsgs.Add("Record has been ADDED");
                     LoadMessageDisplay(errormsgs, "alert alert-success");
                     UpdateButton.Enabled = true;
                     DeleteButton.Enabled = true;
@@ -291,14 +292,14 @@ namespace WebApp.Pages
             int id = 0;
             if (string.IsNullOrEmpty(ID.Text))
             {
-                errormsgs.Add("Search for a record to update");
+                errormsgs.Add("Search for a record to ");
             }
             else if (!int.TryParse(ID.Text, out id))
             {
                 errormsgs.Add("Id is invalid");
             }
             Validation(sender, e);
-            if (errormsgs.Count > 1)
+            if (errormsgs.Count > 0)
             {
                 LoadMessageDisplay(errormsgs, "alert alert-info");
             }
@@ -308,9 +309,9 @@ namespace WebApp.Pages
                 {
                     Controller02 sysmgr = new Controller02();
                     Entity02 item = new Entity02();
-                    item.ProductID = int.Parse(ID.Text);
+                    item.ProductID = id;
                     item.ProductName = Name.Text.Trim();
-                    if (SupplierList.SelectedIndex == 0)
+                    if (SupplierList.SelectedValue == "0")
                     {
                         item.SupplierID = null;
                     }
@@ -357,7 +358,7 @@ namespace WebApp.Pages
                     int rowsaffected = sysmgr.Update(item);
                     if (rowsaffected > 0)
                     {
-                        errormsgs.Add("Record has been updated");
+                        errormsgs.Add("Record has been UPDATED");
                         LoadMessageDisplay(errormsgs, "alert alert-success");
                     }
                     else
@@ -377,9 +378,9 @@ namespace WebApp.Pages
         {
             if (string.IsNullOrEmpty(ID.Text))
             {
-                errormsgs.Add("Search for a record to delete");
+                errormsgs.Add("Search for a record to DELETE");
             }
-            if (errormsgs.Count > 1)
+            if (errormsgs.Count > 0)
             {
                 LoadMessageDisplay(errormsgs, "alert alert-info");
             }
@@ -391,7 +392,7 @@ namespace WebApp.Pages
                     int rowsaffected = sysmgr.Delete(int.Parse(ID.Text));
                     if (rowsaffected > 0)
                     {
-                        errormsgs.Add("Record has been deleted");
+                        errormsgs.Add("Record has been DELETED");
                         LoadMessageDisplay(errormsgs, "alert alert-success");
                         Clear(sender, e);
                     }
