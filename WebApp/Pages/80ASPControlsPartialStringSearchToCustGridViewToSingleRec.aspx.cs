@@ -88,7 +88,7 @@ namespace WebApp.Pages
         {
             GridViewRow agvrow = ProductGridViewV2.Rows[ProductGridViewV2.SelectedIndex];
             string productid = (agvrow.FindControl("ProductID") as Label).Text;
-            Response.Redirect("94CRUDPageNW.aspx?pid=" + productid);
+            Response.Redirect("94CRUDPageNW.aspx?page=80&pid=" + productid + "&add=" + "no");
         }
     }
 }

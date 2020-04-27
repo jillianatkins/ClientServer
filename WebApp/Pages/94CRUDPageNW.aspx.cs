@@ -98,14 +98,6 @@ namespace WebApp.Pages
             Message.CssClass = cssclass;
             Message.DataSource = errormsglist;
             Message.DataBind();
-            LabelMessage1.InnerHtml = "";
-            //LabelMessage1.Attribute.Add(Class = cssclass;
-            for (int i = 0; i <= errormsglist.Count - 1; i++)
-            {
-                LabelMessage1.InnerHtml += "<br />"
-                                        + errormsglist[i];
-            }
-            
         }
         protected void BindCategoryList()
         {
@@ -196,6 +188,22 @@ namespace WebApp.Pages
             if (pagenum == "50")
             {
                 Response.Redirect("50ASPControlsMultiRecordDropdownToSingleRecord.aspx");
+            }
+            else if (pagenum == "60")
+            {
+                Response.Redirect("60ASPControlsMultiRecDropToCustGridViewToSingleRec.aspx");
+            }
+            else if (pagenum == "70")
+            {
+                Response.Redirect("70ASPControlsMultiRecDropToDropToSingleRec.aspx");
+            }
+            else if (pagenum == "80")
+            {
+                Response.Redirect("80ASPControlsPartialStringSearchToCustGridViewToSingleRec.aspx");
+            }
+            else if (pagenum == "90")
+            {
+                Response.Redirect("90ASPControlsPartialStringSearchToDropToSingleRec.aspx");
             }
             else
             {

@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="80ASPControlsPartialStringSearchToCustGridViewToSingleRec.aspx.cs" Inherits="WebApp.Pages._80ASPControlsPartialStringSearchToCustGridViewToSingleRec" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <h1> Partial String Search to Custom GridView to Single Record via Page Navigation</h1>
+    <h1> 80 Partial String Search to Custom GridView to Single Record via Page Navigation</h1>
     <div class="offset-2">
         <asp:DataList ID="Message" runat="server" Enabled="False">
         <ItemTemplate>

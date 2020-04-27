@@ -82,7 +82,7 @@ namespace WebApp.Pages
                 try
                 {
                     string productid = List02.SelectedValue;
-                    Response.Redirect("94CRUDPageNW.aspx?pid=" + productid);
+                    Response.Redirect("94CRUDPageNW.aspx?page=70&pid=" + productid + "&add=" + "no");
                 }
                 catch (Exception ex)
                 {
