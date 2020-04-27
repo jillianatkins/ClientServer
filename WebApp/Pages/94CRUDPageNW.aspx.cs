@@ -159,10 +159,6 @@ namespace WebApp.Pages
             {
                 errormsgs.Add("Category is required");
             }
-            //if (QuantityPerUnit.Text.Length > 20)
-            //{
-            //    errormsgs.Add("Quantity per Unit is limited to 20 characters");
-            //}
             double unitprice = 0;
             if (string.IsNullOrEmpty(UnitPrice.Text))
             {
@@ -214,11 +210,7 @@ namespace WebApp.Pages
         {
             ID.Text = "";
             Name.Text = "";
-            //QuantityPerUnit.Text = "";
             UnitPrice.Text = "";
-            //UnitsInStock.Text = "";
-            //UnitsOnOrder.Text = "";
-            //ReorderLevel.Text = "";
             Discontinued.Checked = false;
             CategoryList.ClearSelection();
             SupplierList.ClearSelection();
