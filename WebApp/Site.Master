@@ -68,7 +68,7 @@
                                     <a class="dropdown-item"
                                             href="~/Pages/20ASPControlsSingleRecordQuery.aspx"
                                             style="color:black" runat="server">
-                                            20-Single Record Query using Primary Key (Ex05)
+                                            20-Single Record Query using Primary Key (Ex07)
                                     </a>
                                     
                                     <a class="dropdown-item"
@@ -79,7 +79,7 @@
                                     <a class="dropdown-item"
                                             href="~/Pages/40ASPControlsMultiRecordDropdownToCustomGridView.aspx"
                                             style="color:black" runat="server">
-                                            40-Multi Record Query Dropdown to Custom GridView (Ex06)
+                                            40-Multi Record Query Dropdown to Custom GridView (Ex08)
                                     </a>
                                     <a class="dropdown-item"
                                             href="~/Pages/50ASPControlsMultiRecordDropdownToSingleRecord.aspx"
