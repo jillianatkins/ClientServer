@@ -44,7 +44,7 @@
                 </asp:DropDownList> 
         </div>
     </div>
-    <div class="row">
+    <%--<div class="row">
         <div class="col-md-4 text-right">
                   <asp:Label ID="Label3" runat="server" Text="Quantity/Unit"
                      AssociatedControlID="QuantityPerUnit"></asp:Label>
@@ -52,7 +52,7 @@
         <div class="col-md-4 text-left">
                 <asp:TextBox ID="QuantityPerUnit" runat="server"></asp:TextBox>
         </div>
-    </div>
+    </div>--%>
     <div class="row">
         <div class="col-md-4 text-right">
                   <asp:Label ID="Label4" runat="server" Text="Unit Price"
@@ -64,7 +64,7 @@
                 </asp:TextBox>
         </div>
     </div>
-    <div class="row">
+    <%--<div class="row">
         <div class="col-md-4 text-right">
                   <asp:Label ID="Label8" runat="server" Text="Units In Stock"
                      AssociatedControlID="UnitsInStock">
@@ -96,7 +96,7 @@
                 <asp:TextBox ID="ReorderLevel" runat="server"> 
                 </asp:TextBox>
         </div>
-    </div>
+    </div>--%>
     <div class="row">
         <div class="col-md-4 text-right">
                   <asp:Label ID="Label11" runat="server" Text="Discontinued"

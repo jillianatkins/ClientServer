@@ -74,16 +74,16 @@ namespace WebApp.Pages
                         {
                             SupplierList.SelectedValue = "0";
                         }
-                        QuantityPerUnit.Text =
-                            info.QuantityPerUnit == null ? "" : info.QuantityPerUnit; //NULL in Database
+                        //QuantityPerUnit.Text =
+                        //    info.QuantityPerUnit == null ? "" : info.QuantityPerUnit; //NULL in Database
                         UnitPrice.Text =
                             info.UnitPrice.HasValue ? string.Format("{0:0.00}", info.UnitPrice.Value) : ""; //NULL in Database
-                        UnitsInStock.Text =
-                            info.UnitsInStock.HasValue ? info.UnitsInStock.Value.ToString() : ""; //NULL in Database
-                        UnitsOnOrder.Text =
-                            info.UnitsOnOrder.HasValue ? info.UnitsOnOrder.Value.ToString() : ""; //NULL in Database
-                        ReorderLevel.Text =
-                            info.ReorderLevel.HasValue ? info.ReorderLevel.Value.ToString() : ""; //NULL in Database
+                        //UnitsInStock.Text =
+                        //    info.UnitsInStock.HasValue ? info.UnitsInStock.Value.ToString() : ""; //NULL in Database
+                        //UnitsOnOrder.Text =
+                        //    info.UnitsOnOrder.HasValue ? info.UnitsOnOrder.Value.ToString() : ""; //NULL in Database
+                        //ReorderLevel.Text =
+                        //    info.ReorderLevel.HasValue ? info.ReorderLevel.Value.ToString() : ""; //NULL in Database
                         Discontinued.Checked = info.Discontinued; //NOT NULL in Database
                     }
                 }
@@ -170,10 +170,10 @@ namespace WebApp.Pages
             {
                 errormsgs.Add("Category is required");
             }
-            if (QuantityPerUnit.Text.Length > 20)
-            {
-                errormsgs.Add("Quantity per Unit is limited to 20 characters");
-            }
+            //if (QuantityPerUnit.Text.Length > 20)
+            //{
+            //    errormsgs.Add("Quantity per Unit is limited to 20 characters");
+            //}
             double unitprice = 0;
             if (string.IsNullOrEmpty(UnitPrice.Text))
             {
@@ -209,11 +209,11 @@ namespace WebApp.Pages
         {
             ID.Text = "";
             Name.Text = "";
-            QuantityPerUnit.Text = "";
+            //QuantityPerUnit.Text = "";
             UnitPrice.Text = "";
-            UnitsInStock.Text = "";
-            UnitsOnOrder.Text = "";
-            ReorderLevel.Text = "";
+            //UnitsInStock.Text = "";
+            //UnitsOnOrder.Text = "";
+            //ReorderLevel.Text = "";
             Discontinued.Checked = false;
             CategoryList.ClearSelection();
             SupplierList.ClearSelection();
@@ -243,34 +243,33 @@ namespace WebApp.Pages
                     }
                     //CategoryID can be NULL in Database but NOT NULL when record is added in this CRUD page
                     item.CategoryID = int.Parse(CategoryList.SelectedValue);
-                    item.QuantityPerUnit =
-                        string.IsNullOrEmpty(QuantityPerUnit.Text) ? null : QuantityPerUnit.Text; //NULL
+                    //item.QuantityPerUnit = string.IsNullOrEmpty(QuantityPerUnit.Text) ? null : QuantityPerUnit.Text; //NULL
                     //UnitPrice can be NULL in Database but NOT NULL when record is added in this CRUD page
                     item.UnitPrice = decimal.Parse(UnitPrice.Text);
-                    if (string.IsNullOrEmpty(UnitsInStock.Text)) //NULL in Database
-                    {
-                        item.UnitsInStock = null;
-                    }
-                    else
-                    {
-                        item.UnitsInStock = Int16.Parse(UnitsInStock.Text);
-                    }
-                    if (string.IsNullOrEmpty(UnitsOnOrder.Text)) //NULL in Database
-                    {
-                        item.UnitsOnOrder = null;
-                    }
-                    else
-                    {
-                        item.UnitsOnOrder = Int16.Parse(UnitsOnOrder.Text);
-                    }
-                    if (string.IsNullOrEmpty(ReorderLevel.Text)) //NULL in Database
-                    {
-                        item.ReorderLevel = null;
-                    }
-                    else
-                    {
-                        item.ReorderLevel = Int16.Parse(ReorderLevel.Text);
-                    }
+                    //if (string.IsNullOrEmpty(UnitsInStock.Text)) //NULL in Database
+                    //{
+                    //    item.UnitsInStock = null;
+                    //}
+                    //else
+                    //{
+                    //    item.UnitsInStock = Int16.Parse(UnitsInStock.Text);
+                    //}
+                    //if (string.IsNullOrEmpty(UnitsOnOrder.Text)) //NULL in Database
+                    //{
+                    //    item.UnitsOnOrder = null;
+                    //}
+                    //else
+                    //{
+                    //    item.UnitsOnOrder = Int16.Parse(UnitsOnOrder.Text);
+                    //}
+                    //if (string.IsNullOrEmpty(ReorderLevel.Text)) //NULL in Database
+                    //{
+                    //    item.ReorderLevel = null;
+                    //}
+                    //else
+                    //{
+                    //    item.ReorderLevel = Int16.Parse(ReorderLevel.Text);
+                    //}
                     item.Discontinued = false; //NOT NULL in Database
                     int newID = sysmgr.Add(item); 
                     ID.Text = newID.ToString();
@@ -289,14 +288,9 @@ namespace WebApp.Pages
         }
         protected void Update_Click(object sender, EventArgs e)
         {
-            int id = 0;
             if (string.IsNullOrEmpty(ID.Text))
             {
-                errormsgs.Add("Search for a record to ");
-            }
-            else if (!int.TryParse(ID.Text, out id))
-            {
-                errormsgs.Add("Id is invalid");
+                errormsgs.Add("Search for a record to UPDATE");
             }
             Validation(sender, e);
             if (errormsgs.Count > 0)
@@ -309,7 +303,7 @@ namespace WebApp.Pages
                 {
                     Controller02 sysmgr = new Controller02();
                     Entity02 item = new Entity02();
-                    item.ProductID = id;
+                    item.ProductID = int.Parse(ID.Text);
                     item.ProductName = Name.Text.Trim();
                     if (SupplierList.SelectedValue == "0")
                     {
@@ -320,8 +314,8 @@ namespace WebApp.Pages
                         item.SupplierID = int.Parse(SupplierList.SelectedValue);
                     }
                     item.CategoryID = int.Parse(CategoryList.SelectedValue);
-                    item.QuantityPerUnit =
-                        string.IsNullOrEmpty(QuantityPerUnit.Text) ? null : QuantityPerUnit.Text;
+                    //item.QuantityPerUnit =
+                    //    string.IsNullOrEmpty(QuantityPerUnit.Text) ? null : QuantityPerUnit.Text;
                     if (string.IsNullOrEmpty(UnitPrice.Text))
                     {
                         item.UnitPrice = null;
@@ -330,30 +324,30 @@ namespace WebApp.Pages
                     {
                         item.UnitPrice = decimal.Parse(UnitPrice.Text);
                     }
-                    if (string.IsNullOrEmpty(UnitsInStock.Text))
-                    {
-                        item.UnitsInStock = null;
-                    }
-                    else
-                    {
-                        item.UnitsInStock = Int16.Parse(UnitsInStock.Text);
-                    }
-                    if (string.IsNullOrEmpty(UnitsOnOrder.Text))
-                    {
-                        item.UnitsOnOrder = null;
-                    }
-                    else
-                    {
-                        item.UnitsOnOrder = Int16.Parse(UnitsOnOrder.Text);
-                    }
-                    if (string.IsNullOrEmpty(ReorderLevel.Text))
-                    {
-                        item.ReorderLevel = null;
-                    }
-                    else
-                    {
-                        item.ReorderLevel = Int16.Parse(ReorderLevel.Text);
-                    }
+                    //if (string.IsNullOrEmpty(UnitsInStock.Text))
+                    //{
+                    //    item.UnitsInStock = null;
+                    //}
+                    //else
+                    //{
+                    //    item.UnitsInStock = Int16.Parse(UnitsInStock.Text);
+                    //}
+                    //if (string.IsNullOrEmpty(UnitsOnOrder.Text))
+                    //{
+                    //    item.UnitsOnOrder = null;
+                    //}
+                    //else
+                    //{
+                    //    item.UnitsOnOrder = Int16.Parse(UnitsOnOrder.Text);
+                    //}
+                    //if (string.IsNullOrEmpty(ReorderLevel.Text))
+                    //{
+                    //    item.ReorderLevel = null;
+                    //}
+                    //else
+                    //{
+                    //    item.ReorderLevel = Int16.Parse(ReorderLevel.Text);
+                    //}
                     item.Discontinued = Discontinued.Checked;
                     int rowsaffected = sysmgr.Update(item);
                     if (rowsaffected > 0)
