@@ -17,14 +17,14 @@ namespace DBSystem.DAL
         public DbSet<Product> Products { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
     }
-    //internal class ContextFSIS : DbContext
-    //{
-    //    public ContextFSIS() : base("FSISDB") { }
-   
-    //}
-    //internal class ContextStarTED : DbContext
-    //{
-    //    public ContextStarTED() : base("StarTEDDB") { }
+    internal class ContextFSIS : DbContext
+    {
+        public ContextFSIS() : base("FSISDB") { }
 
-    //}
+    }
+    internal class ContextStarTED : DbContext
+    {
+        public ContextStarTED() : base("StarTEDDB") { }
+
+    }
 }

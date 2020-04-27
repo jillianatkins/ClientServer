@@ -36,14 +36,6 @@
                         </asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Qty/Per">
-                    <ItemStyle HorizontalAlign="Left"></ItemStyle>
-                     <ItemTemplate>
-                        <asp:Label ID="QuantityPerUnit" runat="server" 
-                            Text='<%# Eval("QuantityPerUnit") == null ? "each" : Eval("QuantityPerUnit") %>'>
-                        </asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
                 <asp:TemplateField HeaderText="Price ($)">
                     <HeaderStyle HorizontalAlign="Right"></HeaderStyle>
                     <ItemStyle HorizontalAlign="Left"></ItemStyle>

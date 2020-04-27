@@ -37,7 +37,6 @@ namespace WebApp.Pages
                 }
                 else if(add == "yes")
                 {
-                    Discontinued.Enabled = false;
                     UpdateButton.Enabled = false;
                     DeleteButton.Enabled = false;
 
@@ -270,14 +269,13 @@ namespace WebApp.Pages
                     //{
                     //    item.ReorderLevel = Int16.Parse(ReorderLevel.Text);
                     //}
-                    item.Discontinued = false; //NOT NULL in Database
+                    item.Discontinued = Discontinued.Checked; //NOT NULL in Database
                     int newID = sysmgr.Add(item); 
                     ID.Text = newID.ToString();
                     errormsgs.Add("Record has been ADDED");
                     LoadMessageDisplay(errormsgs, "alert alert-success");
                     UpdateButton.Enabled = true;
                     DeleteButton.Enabled = true;
-                    Discontinued.Enabled = true;
                 }
                 catch (Exception ex)
                 {
