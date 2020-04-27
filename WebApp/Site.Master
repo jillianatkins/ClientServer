@@ -84,7 +84,7 @@
                                     <a class="dropdown-item"
                                             href="~/Pages/50ASPControlsMultiRecordDropdownToSingleRecord.aspx"
                                             style="color:black" runat="server">
-                                            50-Multi Record Query Dropdown to Single Record via Page Navigation (Ex09,10)
+                                            50-Multi Record Query Dropdown to Single Record via Page Navigation (Ex09)
                                     </a>
                                     <a class="dropdown-item"
                                             href="~/Pages/60ASPControlsMultiRecDropToCustGridViewToSingleRec.aspx"
