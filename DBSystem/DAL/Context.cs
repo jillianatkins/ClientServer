@@ -12,10 +12,19 @@ namespace DBSystem.DAL
     internal class Context : DbContext
     {
         public Context() : base("NWDB") { }
-        //public Context() : base("FSIS_db") { }
-        //public Context() : base("StarTEDDB") { }
-        public DbSet<Entity01> Entity01s { get; set; }
-        public DbSet<Entity02> Entity02s { get; set; }
-        public DbSet<Entity03> Entity03s { get; set; }
+        
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
     }
+    //internal class ContextFSIS : DbContext
+    //{
+    //    public ContextFSIS() : base("FSISDB") { }
+   
+    //}
+    //internal class ContextStarTED : DbContext
+    //{
+    //    public ContextStarTED() : base("StarTEDDB") { }
+
+    //}
 }

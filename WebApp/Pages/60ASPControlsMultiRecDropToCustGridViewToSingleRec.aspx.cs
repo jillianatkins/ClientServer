@@ -24,13 +24,13 @@ namespace WebApp.Pages
         {
             try
             {
-                Controller01 sysmgr = new Controller01();
-                List<Entity01> info = null;
+                CategoryController sysmgr = new CategoryController();
+                List<Category> info = null;
                 info = sysmgr.List();
                 info.Sort((x, y) => x.CategoryName.CompareTo(y.CategoryName));
                 List01.DataSource = info;
-                List01.DataTextField = nameof(Entity01.CategoryName);
-                List01.DataValueField = nameof(Entity01.CategoryID);
+                List01.DataTextField = nameof(Category.CategoryName);
+                List01.DataValueField = nameof(Category.CategoryID);
                 List01.DataBind();
                 List01.Items.Insert(0, "select...");
             }
@@ -49,8 +49,8 @@ namespace WebApp.Pages
             {
                 try
                 {
-                    Controller02 sysmgr = new Controller02();
-                    List<Entity02> info = null;
+                    ProductController sysmgr = new ProductController();
+                    List<Product> info = null;
                     info = sysmgr.FindByID(int.Parse(List01.SelectedValue));
                     info.Sort((x, y) => x.ProductName.CompareTo(y.ProductName));
                     List02.DataSource = info;

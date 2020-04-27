@@ -26,13 +26,13 @@ namespace WebApp.Pages
             {
                 Fetch02.Enabled = false;
                 List02.Enabled = false;
-                Controller01 sysmgr = new Controller01();
-                List<Entity01> info = null;
+                CategoryController sysmgr = new CategoryController();
+                List<Category> info = null;
                 info = sysmgr.List();
                 info.Sort((x, y) => x.CategoryName.CompareTo(y.CategoryName));
                 List01.DataSource = info;
-                List01.DataTextField = nameof(Entity01.CategoryName);
-                List01.DataValueField = nameof(Entity01.CategoryID);
+                List01.DataTextField = nameof(Category.CategoryName);
+                List01.DataValueField = nameof(Category.CategoryID);
                 List01.DataBind();
                 List01.Items.Insert(0, "select...");
             }
@@ -51,16 +51,16 @@ namespace WebApp.Pages
             {
                 try
                 {
-                    Controller02 sysmgr02 = new Controller02();
-                    List<Entity02> info02 = null;
+                    ProductController sysmgr02 = new ProductController();
+                    List<Product> info02 = null;
                     info02 = sysmgr02.FindByID(int.Parse(List01.SelectedValue));
                     //info02 = sysmgr02.List();
                     info02.Sort((x, y) => x.ProductName.CompareTo(y.ProductName));
                     Fetch02.Enabled = true;
                     List02.Enabled = true;
                     List02.DataSource = info02;
-                    List02.DataTextField = nameof(Entity02.ProductandID);
-                    List02.DataValueField = nameof(Entity02.ProductID);
+                    List02.DataTextField = nameof(Product.ProductandID);
+                    List02.DataValueField = nameof(Product.ProductID);
                     List02.DataBind();
                     List02.Items.Insert(0, "select...");
 

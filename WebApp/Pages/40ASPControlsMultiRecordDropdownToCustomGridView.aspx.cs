@@ -24,13 +24,13 @@ namespace WebApp.Pages
         {
             try
             {
-                Controller01 sysmgr = new Controller01();
-                List<Entity01> info = null;
+                CategoryController sysmgr = new CategoryController();
+                List<Category> info = null;
                 info = sysmgr.List();
                 info.Sort((x, y) => x.CategoryName.CompareTo(y.CategoryName));
                 List01.DataSource = info;
-                List01.DataTextField = nameof(Entity01.CategoryName);
-                List01.DataValueField = nameof(Entity01.CategoryID);
+                List01.DataTextField = nameof(Category.CategoryName);
+                List01.DataValueField = nameof(Category.CategoryID);
                 List01.DataBind();
                 List01.Items.Insert(0, "select...");
             }
@@ -49,8 +49,8 @@ namespace WebApp.Pages
             {
                 try
                 {
-                    Controller01 sysmgr01 = new Controller01();
-                    Entity01 info01 = null;
+                    CategoryController sysmgr01 = new CategoryController();
+                    Category info01 = null;
                     info01 = sysmgr01.FindByPKID(int.Parse(List01.SelectedValue));
                     IDLabel01.Text = "Category ID:";
                     IDLabel02.Text = info01.CategoryID.ToString();
@@ -59,8 +59,8 @@ namespace WebApp.Pages
                     DescriptionLabel01.Text = "Category Description:";
                     DescriptionLabel02.Text = info01.Description;
 
-                    Controller02 sysmgr02 = new Controller02();
-                    List<Entity02> info02 = null;
+                    ProductController sysmgr02 = new ProductController();
+                    List<Product> info02 = null;
                     info02 = sysmgr02.FindByID(int.Parse(List01.SelectedValue));
                     info02.Sort((x, y) => x.ProductName.CompareTo(y.ProductName));
                     List02.DataSource = info02;

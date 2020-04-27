@@ -45,8 +45,8 @@ namespace WebApp.Pages
                 else
                 {
                     AddButton.Enabled = false;
-                    Controller02 sysmgr = new Controller02();
-                    Entity02 info = null;
+                    ProductController sysmgr = new ProductController();
+                    Product info = null;
                     info = sysmgr.FindByPKID(int.Parse(pid));
                     if (info == null)
                     {
@@ -114,13 +114,13 @@ namespace WebApp.Pages
         {
             try
             {
-                Controller01 sysmgr = new Controller01();
-                List<Entity01> info = null;
+                CategoryController sysmgr = new CategoryController();
+                List<Category> info = null;
                 info = sysmgr.List();
                 info.Sort((x, y) => x.CategoryName.CompareTo(y.CategoryName));
                 CategoryList.DataSource = info;
-                CategoryList.DataTextField = nameof(Entity01.CategoryName);
-                CategoryList.DataValueField = nameof(Entity01.CategoryID);
+                CategoryList.DataTextField = nameof(Category.CategoryName);
+                CategoryList.DataValueField = nameof(Category.CategoryID);
                 CategoryList.DataBind();
                 ListItem myitem = new ListItem();
                 myitem.Value = "0";
@@ -139,13 +139,13 @@ namespace WebApp.Pages
         {
             try
             {
-                Controller03 sysmgr = new Controller03();
-                List<Entity03> info = null;
+                SupplierController sysmgr = new SupplierController();
+                List<Supplier> info = null;
                 info = sysmgr.List();
                 info.Sort((x, y) => x.ContactName.CompareTo(y.ContactName));
                 SupplierList.DataSource = info;
-                SupplierList.DataTextField = nameof(Entity03.ContactName);
-                SupplierList.DataValueField = nameof(Entity03.SupplierID);
+                SupplierList.DataTextField = nameof(Supplier.ContactName);
+                SupplierList.DataValueField = nameof(Supplier.SupplierID);
                 SupplierList.DataBind();
                 ListItem myitem = new ListItem();
                 myitem.Value = "0";
@@ -229,8 +229,8 @@ namespace WebApp.Pages
             {
                 try
                 {
-                    Controller02 sysmgr = new Controller02();
-                    Entity02 item = new Entity02();
+                    ProductController sysmgr = new ProductController();
+                    Product item = new Product();
                     //No ProductID here as the database will give a new one back when we add
                     item.ProductName = Name.Text.Trim(); //NOT NULL in Database
                     if (SupplierList.SelectedValue == "0") //NULL in Database
@@ -301,8 +301,8 @@ namespace WebApp.Pages
             {
                 try
                 {
-                    Controller02 sysmgr = new Controller02();
-                    Entity02 item = new Entity02();
+                    ProductController sysmgr = new ProductController();
+                    Product item = new Product();
                     item.ProductID = int.Parse(ID.Text);
                     item.ProductName = Name.Text.Trim();
                     if (SupplierList.SelectedValue == "0")
@@ -382,7 +382,7 @@ namespace WebApp.Pages
             {
                 try
                 {
-                    Controller02 sysmgr = new Controller02();
+                    ProductController sysmgr = new ProductController();
                     int rowsaffected = sysmgr.Delete(int.Parse(ID.Text));
                     if (rowsaffected > 0)
                     {

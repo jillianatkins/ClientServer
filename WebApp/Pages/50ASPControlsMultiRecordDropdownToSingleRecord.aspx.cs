@@ -24,13 +24,13 @@ namespace WebApp.Pages
         {
             try
             {
-                Controller02 sysmgr = new Controller02();
-                List<Entity02> info = null;
+                ProductController sysmgr = new ProductController();
+                List<Product> info = null;
                 info = sysmgr.List();
                 info.Sort((x, y) => x.ProductName.CompareTo(y.ProductName));
                 List01.DataSource = info;
-                List01.DataTextField = nameof(Entity02.ProductandID);
-                List01.DataValueField = nameof(Entity02.ProductID);
+                List01.DataTextField = nameof(Product.ProductandID);
+                List01.DataValueField = nameof(Product.ProductID);
                 List01.DataBind();
                 List01.Items.Insert(0, "select...");
             }

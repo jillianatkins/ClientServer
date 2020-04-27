@@ -54,8 +54,8 @@ namespace WebApp.Pages
             {
                 try
                 {
-                    Controller02 sysmgr = new Controller02();
-                    List<Entity02> info = sysmgr.FindByPartialName(PartialProductNameV2.Text);
+                    ProductController sysmgr = new ProductController();
+                    List<Product> info = sysmgr.FindByPartialName(PartialProductNameV2.Text);
                     if (info.Count == 0)
                     {
                         errormsgs.Add("No data found for the partial product name search");

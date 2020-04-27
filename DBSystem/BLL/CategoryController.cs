@@ -10,20 +10,20 @@ using DBSystem.ENTITIES;
 
 namespace DBSystem.BLL
 {
-    public class Controller01 //Category
+    public class CategoryController
     {
-        public Entity01 FindByPKID(int id)
+        public Category FindByPKID(int id)
         {
             using (var context = new Context())
             {
-                return context.Entity01s.Find(id);
+                return context.Categories.Find(id);
             }
         }
-        public List<Entity01> List()
+        public List<Category> List()
         {
             using (var context = new Context())
             {
-                return context.Entity01s.ToList();
+                return context.Categories.ToList();
             }
         }
     }

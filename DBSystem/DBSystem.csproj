@@ -52,13 +52,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLL\Controller01.cs" />
-    <Compile Include="BLL\Controller02.cs" />
-    <Compile Include="BLL\Controller03.cs" />
+    <Compile Include="BLL\CategoryController.cs" />
+    <Compile Include="BLL\ProductController.cs" />
+    <Compile Include="BLL\SupplierController.cs" />
     <Compile Include="DAL\Context.cs" />
-    <Compile Include="ENTITIES\Entity01.cs" />
-    <Compile Include="ENTITIES\Entity02.cs" />
-    <Compile Include="ENTITIES\Entity03.cs" />
+    <Compile Include="ENTITIES\Category.cs" />
+    <Compile Include="ENTITIES\Product.cs" />
+    <Compile Include="ENTITIES\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

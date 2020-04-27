@@ -10,13 +10,13 @@ using DBSystem.ENTITIES;
 
 namespace DBSystem.BLL
 {
-    public class Controller03 //Supplier
+    public class SupplierController 
     {
-        public List<Entity03> List()
+        public List<Supplier> List()
         {
             using (var context = new Context())
             {
-                return context.Entity03s.ToList();
+                return context.Suppliers.ToList();
             }
         }
     }

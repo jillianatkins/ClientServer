@@ -10,53 +10,53 @@ using DBSystem.ENTITIES;
 
 namespace DBSystem.BLL
 {
-    public class Controller02 //Product
+    public class ProductController
     {
-        public Entity02 FindByPKID(int id)
+        public Product FindByPKID(int id)
         {
             using (var context = new Context())
             {
-                return context.Entity02s.Find(id);
+                return context.Products.Find(id);
             }
         }
-        public List<Entity02> List()
+        public List<Product> List()
         {
             using (var context = new Context())
             {
-                return context.Entity02s.ToList();
+                return context.Products.ToList();
             }
         }
-        public List<Entity02> FindByID(int id)
+        public List<Product> FindByID(int id)
         {
             using (var context = new Context())
             {
-                IEnumerable<Entity02> results =
-                    context.Database.SqlQuery<Entity02>("Products_GetByCategories @ID"
+                IEnumerable<Product> results =
+                    context.Database.SqlQuery<Product>("Products_GetByCategories @ID"
                         , new SqlParameter("ID", id));
                 return results.ToList();
             }
         }
-        public List<Entity02> FindByPartialName(string partialname)
+        public List<Product> FindByPartialName(string partialname)
         {
             using (var context = new Context())
             {
-                IEnumerable<Entity02> results =
-                    context.Database.SqlQuery<Entity02>("Products_GetByPartialProductName @PartialName",
+                IEnumerable<Product> results =
+                    context.Database.SqlQuery<Product>("Products_GetByPartialProductName @PartialName",
                          new SqlParameter("PartialName", partialname));
                 return results.ToList();
             }
         }
-        public int Add(Entity02 item)
+        public int Add(Product item)
         {
             using (var context = new Context())
             {
-                context.Entity02s.Add(item);
+                context.Products.Add(item);
                 context.SaveChanges();
                 return item.ProductID;
 
             }
         }
-        public int Update(Entity02 item)
+        public int Update(Product item)
         {
             using (var context = new Context())
             {
@@ -68,12 +68,12 @@ namespace DBSystem.BLL
         {
             using (var context = new Context())
             {
-                var existing = context.Entity02s.Find(productid);
+                var existing = context.Products.Find(productid);
                 if (existing == null)
                 {
                     throw new Exception("Record has been removed from database");
                 }
-                context.Entity02s.Remove(existing);
+                context.Products.Remove(existing);
                 return context.SaveChanges();
             }
         }
