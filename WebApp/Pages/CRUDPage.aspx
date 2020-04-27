@@ -44,15 +44,6 @@
                 </asp:DropDownList> 
         </div>
     </div>
-    <%--<div class="row">
-        <div class="col-md-4 text-right">
-                  <asp:Label ID="Label3" runat="server" Text="Quantity/Unit"
-                     AssociatedControlID="QuantityPerUnit"></asp:Label>
-        </div>
-        <div class="col-md-4 text-left">
-                <asp:TextBox ID="QuantityPerUnit" runat="server"></asp:TextBox>
-        </div>
-    </div>--%>
     <div class="row">
         <div class="col-md-4 text-right">
                   <asp:Label ID="Label4" runat="server" Text="Unit Price"
@@ -64,39 +55,6 @@
                 </asp:TextBox>
         </div>
     </div>
-    <%--<div class="row">
-        <div class="col-md-4 text-right">
-                  <asp:Label ID="Label8" runat="server" Text="Units In Stock"
-                     AssociatedControlID="UnitsInStock">
-                  </asp:Label>
-        </div>
-        <div class="col-md-4 text-left">
-                <asp:TextBox ID="UnitsInStock" runat="server"> 
-                </asp:TextBox>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 text-right">
-                  <asp:Label ID="Label9" runat="server" Text="Units On Order"
-                     AssociatedControlID="UnitsOnOrder">
-                  </asp:Label>
-        </div>
-        <div class="col-md-4 text-left">
-                <asp:TextBox ID="UnitsOnOrder" runat="server"> 
-                </asp:TextBox>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 text-right">
-                  <asp:Label ID="Label10" runat="server" Text="Reorder Level"
-                     AssociatedControlID="ReorderLevel">
-                  </asp:Label>
-        </div>
-        <div class="col-md-4 text-left">
-                <asp:TextBox ID="ReorderLevel" runat="server"> 
-                </asp:TextBox>
-        </div>
-    </div>--%>
     <div class="row">
         <div class="col-md-4 text-right">
                   <asp:Label ID="Label11" runat="server" Text="Discontinued"

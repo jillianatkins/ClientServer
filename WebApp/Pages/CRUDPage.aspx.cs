@@ -99,6 +99,7 @@ namespace WebApp.Pages
             Message.DataSource = errormsglist;
             Message.DataBind();
             LabelMessage1.InnerHtml = "";
+            //LabelMessage1.Attribute.Add(Class = cssclass;
             for (int i = 0; i <= errormsglist.Count - 1; i++)
             {
                 LabelMessage1.InnerHtml += "<br />"

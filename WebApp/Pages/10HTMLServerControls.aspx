@@ -192,8 +192,8 @@
             {
                 try
                 {
-                    Controller01 sysmgr = new Controller01();
-                    List<Entity01> info = null;
+                    CategoryController sysmgr = new CategoryController();
+                    List<Category> info = null;
                     info = sysmgr.List();
                     info.Sort((x, y) => x.CategoryName.CompareTo(y.CategoryName));
                     var html = "";
