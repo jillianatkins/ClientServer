@@ -11,7 +11,7 @@ namespace WebApp.Pages
 {
 
 
-    public partial class CRUDPage
+    public partial class _94CRUDPageNW
     {
 
         /// <summary>

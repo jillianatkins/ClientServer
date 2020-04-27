@@ -13,7 +13,7 @@ using System.Data.Entity.Core;
 
 namespace WebApp.Pages
 {
-    public partial class CRUDPage : System.Web.UI.Page
+    public partial class _94CRUDPageNW : System.Web.UI.Page
     {
         static string pagenum = "";
         static string pid = "";
@@ -193,7 +193,7 @@ namespace WebApp.Pages
         }
             protected void Back_Click(object sender, EventArgs e)
         {
-            if (pagenum == "4")
+            if (pagenum == "50")
             {
                 Response.Redirect("50ASPControlsMultiRecordDropdownToSingleRecord.aspx");
             }

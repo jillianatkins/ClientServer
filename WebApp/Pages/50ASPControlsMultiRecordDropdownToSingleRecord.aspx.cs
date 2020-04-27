@@ -50,7 +50,7 @@ namespace WebApp.Pages
                 try
                 {
                     string productid = List01.SelectedValue;
-                    Response.Redirect("CRUDPage.aspx?page=4&pid=" + productid + "&add=" + "no");
+                    Response.Redirect("94CRUDPageNW.aspx?page=50&pid=" + productid + "&add=" + "no");
                 }
                 catch (Exception ex)
                 {
@@ -63,7 +63,7 @@ namespace WebApp.Pages
             try
             {
                 string productid = List01.SelectedValue;
-                Response.Redirect("CRUDPage.aspx?page=4&pid=" + productid + "&add=" + "yes");
+                Response.Redirect("94CRUDPageNW.aspx?page=50&pid=" + productid + "&add=" + "yes");
             }
             catch (Exception ex)
             {

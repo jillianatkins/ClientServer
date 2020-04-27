@@ -132,7 +132,7 @@
     <Content Include="Pages\70ASPControlsMultiRecDropToDropToSingleRec.aspx" />
     <Content Include="Pages\80ASPControlsPartialStringSearchToCustGridViewToSingleRec.aspx" />
     <Content Include="Pages\90ASPControlsPartialStringSearchToDropToSingleRec.aspx" />
-    <Content Include="Pages\CRUDPage.aspx" />
+    <Content Include="Pages\94CRUDPageNW.aspx" />
     <Content Include="Pages\60ASPControlsMultiRecDropToCustGridViewToSingleRec.aspx" />
     <Content Include="Pages\30ASPControlsMultiRecordDropdownToDefaultGridView.aspx" />
     <Content Include="favicon.ico" />
@@ -354,12 +354,12 @@
     <Compile Include="Pages\90ASPControlsPartialStringSearchToDropToSingleRec.aspx.designer.cs">
       <DependentUpon>90ASPControlsPartialStringSearchToDropToSingleRec.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\CRUDPage.aspx.cs">
-      <DependentUpon>CRUDPage.aspx</DependentUpon>
+    <Compile Include="Pages\94CRUDPageNW.aspx.cs">
+      <DependentUpon>94CRUDPageNW.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\CRUDPage.aspx.designer.cs">
-      <DependentUpon>CRUDPage.aspx</DependentUpon>
+    <Compile Include="Pages\94CRUDPageNW.aspx.designer.cs">
+      <DependentUpon>94CRUDPageNW.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\60ASPControlsMultiRecDropToCustGridViewToSingleRec.aspx.cs">
       <DependentUpon>60ASPControlsMultiRecDropToCustGridViewToSingleRec.aspx</DependentUpon>
