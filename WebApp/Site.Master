@@ -42,7 +42,7 @@
             <div class="navbar navbar-inverse">
                 <nav class="navbar navbar-expand-md navbar-light fixed-top">
                     <a class="navbar-brand" href="Default.aspx" runat="server">
-                            <strong>CPSC-1517 Robbin Law</strong>
+                            <strong>CPSC-1517 Client/Server</strong>
                     </a>
                     <button class="navbar-toggler" type="button"
                             data-toggle="collapse" data-target="#navbarMenuName"
