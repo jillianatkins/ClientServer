@@ -79,7 +79,9 @@
     </div>
     <br /><br />
     <div class="row">
-        <div class="offset-2"> 
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-6 text-left">
             <asp:DataList ID="Message" runat="server">
             <ItemTemplate>
                 <%# Container.DataItem %>
