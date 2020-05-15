@@ -85,16 +85,6 @@
     <div class="row">
         <div class="col-4"></div>
         <div class="col-8">
-            <asp:DataList ID="Message" runat="server">
-            <ItemTemplate>
-                <%# Container.DataItem %>
-            </ItemTemplate>
-            </asp:DataList>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4"></div>
-        <div class="col-8">
             <label ID="MessageLabel" runat="server" />
         </div>
     </div>

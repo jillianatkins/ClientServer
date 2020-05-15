@@ -18,12 +18,8 @@ namespace WebApp.Pages
         static string pagenum = "";
         static string pid = "";
         static string add = "";
-        List<string> errormsgs = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
-            errormsgs.Clear();
-            Message.DataSource = null;
-            Message.DataBind();
             if (!Page.IsPostBack)
             {
                 pagenum = Request.QueryString["page"];
@@ -39,6 +35,7 @@ namespace WebApp.Pages
                 {
                     UpdateButton.Enabled = false;
                     DeleteButton.Enabled = false;
+                    Discontinued.Enabled = false;
                 }
                 else
                 {
@@ -48,8 +45,6 @@ namespace WebApp.Pages
                     info = sysmgr.FindByPKID(int.Parse(pid));
                     if (info == null)
                     {
-                        errormsgs.Add("Record is not in Database.");
-                        LoadMessageDisplay(errormsgs, "alert alert-info");
                         ShowMessage("Record is not in Database.", "alert alert-info");
                         Clear(sender, e);
                     }
@@ -94,12 +89,6 @@ namespace WebApp.Pages
             }
             return ex;
         }
-        protected void LoadMessageDisplay(List<string> errormsglist, string cssclass)
-        {
-            Message.CssClass = cssclass;
-            Message.DataSource = errormsglist;
-            Message.DataBind();
-        }
         protected void ShowMessage(string message, string cssclass)
         {
             MessageLabel.Attributes.Add("class", cssclass);
@@ -126,8 +115,6 @@ namespace WebApp.Pages
             }
             catch (Exception ex)
             {
-                errormsgs.Add(GetInnerException(ex).ToString());
-                LoadMessageDisplay(errormsgs, "alert alert-danger");
                 ShowMessage(GetInnerException(ex).ToString(), "alert alert-danger");
             }
         }
@@ -152,42 +139,41 @@ namespace WebApp.Pages
             }
             catch (Exception ex)
             {
-                errormsgs.Add(GetInnerException(ex).ToString());
-                LoadMessageDisplay(errormsgs, "alert alert-danger");
                 ShowMessage(GetInnerException(ex).ToString(), "alert alert-danger");
             }
         }
-        protected void Validation(object sender, EventArgs e)
+        protected bool Validation(object sender, EventArgs e)
         {
             double unitprice = 0;
             if (string.IsNullOrEmpty(Name.Text))
             {
-                errormsgs.Add("Name is required");
                 ShowMessage("Name is required", "alert alert-info");
+                return false;
             }
             else if (CategoryList.SelectedValue == "0")
             {
-                errormsgs.Add("Category is required");
                 ShowMessage("Category is required", "alert alert-info");
+                return false;
             }
             else if (string.IsNullOrEmpty(UnitPrice.Text))
             {
-                errormsgs.Add("Unit Price is required");
                 ShowMessage("Unit Price is required", "alert alert-info");
+                return false;
             }
             else if (double.TryParse(UnitPrice.Text, out unitprice))
             {
                 if (unitprice < 0.00 || unitprice > 200.00)
                 {
-                    errormsgs.Add("Unit Price must be between $0.00 and $200.00");
                     ShowMessage("Unit Price must be between $0.00 and $200.00", "alert alert-info");
+                    return false;
                 }
             }
             else
             {
-                errormsgs.Add("Unit Price must be a real number");
                 ShowMessage("Unit Price must be a real number", "alert alert-info");
+                return false;
             }
+            return true;
         }
             protected void Back_Click(object sender, EventArgs e)
         {
@@ -227,12 +213,8 @@ namespace WebApp.Pages
         }
         protected void Add_Click(object sender, EventArgs e)
         {
-            Validation(sender, e);
-            if (errormsgs.Count > 0)
-            {
-                LoadMessageDisplay(errormsgs, "alert alert-info");
-            }
-            else
+            var isValid = Validation(sender, e);
+            if (isValid)
             {
                 try
                 {
@@ -255,34 +237,23 @@ namespace WebApp.Pages
                     item.Discontinued = Discontinued.Checked; //NOT NULL in Database
                     int newID = sysmgr.Add(item); 
                     ID.Text = newID.ToString();
-                    errormsgs.Add("Record has been ADDED");
-                    LoadMessageDisplay(errormsgs, "alert alert-success");
                     ShowMessage("Record has been ADDED", "alert alert-success");
+                    AddButton.Enabled = false;
                     UpdateButton.Enabled = true;
                     DeleteButton.Enabled = true;
+                    Discontinued.Enabled = true;
                 }
                 catch (Exception ex)
                 {
-                    errormsgs.Add(GetInnerException(ex).ToString());
-                    LoadMessageDisplay(errormsgs, "alert alert-danger");
                     ShowMessage(GetInnerException(ex).ToString(), "alert alert-danger");
                 }
             }
         }
         protected void Update_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(ID.Text))
-            {
-                errormsgs.Add("Search for a record to UPDATE");
-                ShowMessage("Search for a record to UPDATE", "alert alert-info");
-            }
-            Validation(sender, e);
-            if (errormsgs.Count > 0)
-            {
-                LoadMessageDisplay(errormsgs, "alert alert-info");
-            }
-            else
-            {
+            var isValid = Validation(sender, e);
+            if (isValid)
+            { 
                 try
                 {
                     ProductController sysmgr = new ProductController();
@@ -303,38 +274,23 @@ namespace WebApp.Pages
                     int rowsaffected = sysmgr.Update(item);
                     if (rowsaffected > 0)
                     {
-                        errormsgs.Add("Record has been UPDATED");
-                        LoadMessageDisplay(errormsgs, "alert alert-success");
                         ShowMessage("Record has been UPDATED", "alert alert-success");
-
                     }
                     else
                     {
-                        errormsgs.Add("Record was not found");
-                        LoadMessageDisplay(errormsgs, "alert alert-warning");
                         ShowMessage("Record was not found", "alert alert-warning");
                     }
                 }
                 catch (Exception ex)
                 {
-                    errormsgs.Add(GetInnerException(ex).ToString());
-                    LoadMessageDisplay(errormsgs, "alert alert-danger");
                     ShowMessage(GetInnerException(ex).ToString(), "alert alert-danger");
                 }
             }
         }
         protected void Delete_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(ID.Text))
-            {
-                errormsgs.Add("Search for a record to DELETE");
-                ShowMessage("Search for a record to DELETE", "alert alert-info");
-            }
-            if (errormsgs.Count > 0)
-            {
-                LoadMessageDisplay(errormsgs, "alert alert-info");
-            }
-            else
+            var isValid = true;
+            if (isValid)
             {
                 try
                 {
@@ -342,26 +298,20 @@ namespace WebApp.Pages
                     int rowsaffected = sysmgr.Delete(int.Parse(ID.Text));
                     if (rowsaffected > 0)
                     {
-                        errormsgs.Add("Record has been DELETED");
-                        LoadMessageDisplay(errormsgs, "alert alert-success");
                         ShowMessage("Record has been DELETED", "alert alert-success");
                         Clear(sender, e);
                     }
                     else
                     {
-                        errormsgs.Add("Record was not found");
-                        LoadMessageDisplay(errormsgs, "alert alert-warning");
                         ShowMessage("Record was not found", "alert alert-warning");
                     }
                     UpdateButton.Enabled = false;
                     DeleteButton.Enabled = false;
+                    Discontinued.Enabled = false;
                     AddButton.Enabled = true;
-
                 }
                 catch (Exception ex)
                 {
-                    errormsgs.Add(GetInnerException(ex).ToString());
-                    LoadMessageDisplay(errormsgs, "alert alert-danger");
                     ShowMessage(GetInnerException(ex).ToString(), "alert alert-danger");
                 }
             }
