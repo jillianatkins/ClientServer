@@ -125,6 +125,12 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Exercises\Exercise06.aspx" />
+    <Content Include="Exercises\Exercise07.aspx" />
+    <Content Include="Exercises\Exercise08.aspx" />
+    <Content Include="Exercises\Exercise08CRUD.aspx" />
+    <Content Include="Exercises\Project.aspx" />
+    <Content Include="Exercises\ProjectCRUD.aspx" />
     <Content Include="Pages\10HTMLServerControls.aspx" />
     <Content Include="Pages\20ASPControlsSingleRecordQuery.aspx" />
     <Content Include="Pages\50ASPControlsMultiRecordDropdownToSingleRecord.aspx" />
@@ -306,6 +312,48 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Exercises\Exercise06.aspx.cs">
+      <DependentUpon>Exercise06.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Exercises\Exercise06.aspx.designer.cs">
+      <DependentUpon>Exercise06.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Exercises\Exercise07.aspx.cs">
+      <DependentUpon>Exercise07.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Exercises\Exercise07.aspx.designer.cs">
+      <DependentUpon>Exercise07.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Exercises\Exercise08.aspx.cs">
+      <DependentUpon>Exercise08.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Exercises\Exercise08.aspx.designer.cs">
+      <DependentUpon>Exercise08.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Exercises\Exercise08CRUD.aspx.cs">
+      <DependentUpon>Exercise08CRUD.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Exercises\Exercise08CRUD.aspx.designer.cs">
+      <DependentUpon>Exercise08CRUD.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Exercises\Project.aspx.cs">
+      <DependentUpon>Project.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Exercises\Project.aspx.designer.cs">
+      <DependentUpon>Project.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Exercises\ProjectCRUD.aspx.cs">
+      <DependentUpon>ProjectCRUD.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Exercises\ProjectCRUD.aspx.designer.cs">
+      <DependentUpon>ProjectCRUD.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\10HTMLServerControls.aspx.cs">
       <DependentUpon>10HTMLServerControls.aspx</DependentUpon>

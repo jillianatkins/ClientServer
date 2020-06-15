@@ -57,7 +57,7 @@
                                         id="navbarSubMenu" data-toggle="dropdown" 
                                         runat="server" style="color:black"
                                         aria-haspopup="true" aria-expanded="false"> 
-                                        Pages
+                                        Demo Pages
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarSubMenu">
                                     <a class="dropdown-item"
@@ -68,7 +68,7 @@
                                     <a class="dropdown-item"
                                             href="~/Pages/20ASPControlsSingleRecordQuery.aspx"
                                             style="color:black" runat="server">
-                                            20-Single Record Query using Primary Key (Ex07)
+                                            20-Single Record Query using Primary Key (Ex06)
                                     </a>
                                     
                                     <a class="dropdown-item"
@@ -79,12 +79,12 @@
                                     <a class="dropdown-item"
                                             href="~/Pages/40ASPControlsMultiRecordDropdownToCustomGridView.aspx"
                                             style="color:black" runat="server">
-                                            40-Multi Record Query Dropdown to Custom GridView (Ex08)
+                                            40-Multi Record Query Dropdown to Custom GridView (Ex07)
                                     </a>
                                     <a class="dropdown-item"
                                             href="~/Pages/50ASPControlsMultiRecordDropdownToSingleRecord.aspx"
                                             style="color:black" runat="server">
-                                            50-Multi Record Query Dropdown to Single Record via Page Navigation (Ex09)
+                                            50-Multi Record Query Dropdown to Single Record via Page Navigation (Ex08)
                                     </a>
                                     <a class="dropdown-item"
                                             href="~/Pages/60ASPControlsMultiRecDropToCustGridViewToSingleRec.aspx"
@@ -107,6 +107,37 @@
                                             90-Partial String Search to Dropdown to Single Record via Page Navigation (Project)
                                     </a>
                                     
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#"
+                                        id="A1" data-toggle="dropdown" 
+                                        runat="server" style="color:black"
+                                        aria-haspopup="true" aria-expanded="false"> 
+                                        Exercises
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarSubMenu">
+                                    <a class="dropdown-item"
+                                            href="~/Exercises/Exercise06.aspx"
+                                            style="color:black" runat="server">
+                                            Excercise 06
+                                    </a>
+                                    <a class="dropdown-item"
+                                            href="~/Exercises/Exercise07.aspx"
+                                            style="color:black" runat="server">
+                                            Excercise 07
+                                    </a>
+                                    
+                                    <a class="dropdown-item"
+                                            href="~/Exercises/Exercise08.aspx"
+                                            style="color:black" runat="server">
+                                            Excercise 08
+                                    </a>
+                                    <a class="dropdown-item"
+                                            href="~/Exercises/Project.aspx"
+                                            style="color:black" runat="server">
+                                            Project
+                                    </a>
                                 </div>
                             </li>
                             <li class="nav-item">

@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="20ASPControlsSingleRecordQuery.aspx.cs" Inherits="WebApp.Pages._20ASPControlsSingleRecordQuery" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <h1>20 Simple Query by Primary Key (Ex07)</h1>
+    <h1>20 Simple Query by Primary Key (Ex06)</h1>
     
 
     <div class="row">
