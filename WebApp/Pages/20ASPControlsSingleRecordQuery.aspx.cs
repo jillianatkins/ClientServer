@@ -14,10 +14,8 @@ namespace WebApp.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //MessageLabel.Text = "";
             ID.Text = "";
             Name.Text = "";
-            //buttonFetch.Disabled = true;
         }
 
         protected void Fetch_Click(object sender, EventArgs e)
