@@ -2,19 +2,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h1> 80 Partial String Search to Custom GridView to Single Record via Page Navigation (Project)</h1>
     <div class="offset-2">
-        <asp:DataList ID="Message" runat="server" Enabled="False">
-        <ItemTemplate>
-            <%# Container.DataItem %>
-        </ItemTemplate>
-        </asp:DataList>
-        <br />
         <asp:Label ID="Label1" runat="server" Text="Enter a Partial Product Name "></asp:Label>&nbsp;&nbsp
         <asp:TextBox ID="PartialProductNameV2" runat="server"></asp:TextBox>
         <asp:Button ID="SearchProductsPartial" runat="server" Text="Search Products"
             OnClick="SearchProductsPartial_Click" />
         <br />
         <br />
-        <asp:Label ID="MessageLabel" runat="server" ></asp:Label>
+        <label ID="MessageLabel1" runat="server" />
         <br />
         <asp:GridView ID="ProductGridViewV2" runat="server"
 

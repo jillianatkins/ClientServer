@@ -12,41 +12,38 @@ namespace WebApp.Pages
 {
     public partial class _80ASPControlsPartialStringSearchToCustGridViewToSingleRec : System.Web.UI.Page
     {
-        List<string> errormsgs = new List<string>();
+        //List<string> errormsgs = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
-            MessageLabel.Text = "";
-            if (!Page.IsPostBack)
-            {
-                //BindList();
-            }
+            ShowMessage("" , "");
         }
-
-
         protected Exception GetInnerException(Exception ex)
         {
-            //drill down to the inner most exception
             while (ex.InnerException != null)
             {
                 ex = ex.InnerException;
             }
             return ex;
         }
-
-        protected void LoadMessageDisplay(List<string> errormsglist, string cssclass)
+        protected void ShowMessage(string message, string cssclass)
         {
-            Message.CssClass = cssclass;
-            Message.DataSource = errormsglist;
-            Message.DataBind();
+            if(message == "")
+            {
+                MessageLabel1.InnerHtml = "";
+                MessageLabel1.Attributes.Remove("class");
+            }
+            else
+            {
+                MessageLabel1.Attributes.Add("class", cssclass);
+                MessageLabel1.InnerHtml = message;
+            }
         }
-
-
+        
         protected void SearchProductsPartial_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(PartialProductNameV2.Text))
             {
-                errormsgs.Add("Please enter a partial product name for the search");
-                LoadMessageDisplay(errormsgs, "alert alert-info");
+                ShowMessage("Enter a Product Name or Parial Name", "alert alert-info");
                 ProductGridViewV2.DataSource = null;
                 ProductGridViewV2.DataBind();
             }
@@ -58,15 +55,11 @@ namespace WebApp.Pages
                     List<Product> info = sysmgr.FindByPartialName(PartialProductNameV2.Text);
                     if (info.Count == 0)
                     {
-                        errormsgs.Add("No data found for the partial product name search");
-                        LoadMessageDisplay(errormsgs, "alert alert-info");
+                        ShowMessage("Record was not found", "alert alert-warning");
                     }
                     else
                     {
                         info.Sort((x, y) => x.ProductName.CompareTo(y.ProductName));
-                        //load the multiple record control
-
-                        //GridView
                         ProductGridViewV2.DataSource = info;
                         ProductGridViewV2.DataBind();
 
@@ -74,8 +67,7 @@ namespace WebApp.Pages
                 }
                 catch (Exception ex)
                 {
-                    errormsgs.Add(GetInnerException(ex).ToString());
-                    LoadMessageDisplay(errormsgs, "alert alert-danger");
+                    ShowMessage(GetInnerException(ex).ToString(), "alert alert-danger");
                 }
             }
         }

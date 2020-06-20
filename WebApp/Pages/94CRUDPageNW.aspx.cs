@@ -20,6 +20,7 @@ namespace WebApp.Pages
         static string add = "";
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (!Page.IsPostBack)
             {
                 pagenum = Request.QueryString["page"];
