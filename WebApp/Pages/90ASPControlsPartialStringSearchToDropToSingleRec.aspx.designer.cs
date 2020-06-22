@@ -24,13 +24,13 @@ namespace WebApp.Pages
         protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// PartialProductNameV2 control.
+        /// PartialProductName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox PartialProductNameV2;
+        protected global::System.Web.UI.WebControls.TextBox PartialProductName;
 
         /// <summary>
         /// SearchProductsPartial control.
@@ -40,6 +40,33 @@ namespace WebApp.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button SearchProductsPartial;
+
+        /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+
+        /// <summary>
+        /// List01 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList List01;
+
+        /// <summary>
+        /// Fetch01 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Fetch01;
 
         /// <summary>
         /// MessageLabel control.

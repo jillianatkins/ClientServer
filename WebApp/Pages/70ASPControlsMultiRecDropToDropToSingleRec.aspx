@@ -11,6 +11,7 @@
                  CausesValidation="false" OnClick="Fetch_Click01"/>
         </div>
     </div>
+    <br />
     <div class="row">
         <div class="col-md-4 text-right">
             <asp:Label ID="Label2" runat="server" Text="Select a Product "></asp:Label>
@@ -24,7 +25,5 @@
     <div>
         <br /><br />
         <asp:Label ID="MessageLabel" runat="server" ></asp:Label>
-        <br />
-        <%--<asp:GridView ID="List02" runat="server"></asp:GridView>--%>
     </div>
 </asp:Content>

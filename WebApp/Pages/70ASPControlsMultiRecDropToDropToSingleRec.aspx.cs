@@ -54,7 +54,6 @@ namespace WebApp.Pages
                     ProductController sysmgr02 = new ProductController();
                     List<Product> info02 = null;
                     info02 = sysmgr02.FindByID(int.Parse(List01.SelectedValue));
-                    //info02 = sysmgr02.List();
                     info02.Sort((x, y) => x.ProductName.CompareTo(y.ProductName));
                     Fetch02.Enabled = true;
                     List02.Enabled = true;
