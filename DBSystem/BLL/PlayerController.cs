@@ -12,6 +12,15 @@ namespace DBSystem.BLL
 {
     public class PlayerController
     {
-        
+        public List<Player> FindByID(int id)
+        {
+            using (var context = new ContextFSIS())
+            {
+                IEnumerable<Player> results =
+                    context.Database.SqlQuery<Player>("Player_GetByTeam @ID"
+                        , new SqlParameter("ID", id));
+                return results.ToList();
+            }
+        }
     }
 }
