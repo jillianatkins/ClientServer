@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using DBSystem.BLL;
+using DBSystem.ENTITIES;
 
 namespace WebApp.Exercises
 {
@@ -11,7 +13,61 @@ namespace WebApp.Exercises
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            MessageLabel1.Text = "";
+            if (!Page.IsPostBack)
+            {
+                BindList();
+            }
+        }
+        protected void BindList()
+        {
+            try
+            {
+                PlayerController sysmgr = new PlayerController();
+                List<Player> info = null;
+                info = sysmgr.List();
+                info.Sort((x, y) => x.LastName.CompareTo(y.LastName));
+                List01.DataSource = info;
+                List01.DataTextField = nameof(Player.NameConcat);
+                List01.DataValueField = nameof(Player.PlayerID);
+                List01.DataBind();
+                List01.Items.Insert(0, "select...");
+            }
+            catch (Exception ex)
+            {
+                MessageLabel1.Text = ex.Message;
+            }
+        }
+        protected void Fetch_Click(object sender, EventArgs e)
+        {
+            if (List01.SelectedIndex == 0)
+            {
+                MessageLabel1.Text = "Select a Player";
+            }
+            else
+            {
+                try
+                {
+                    string playerID = List01.SelectedValue;
+                    Response.Redirect("Exercise08CRUD.aspx?page=50&pid=" + playerID + "&add=" + "no");
+                }
+                catch (Exception ex)
+                {
+                    MessageLabel1.Text = ex.Message;
+                }
+            }
+        }
+        protected void Add_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string playerID = List01.SelectedValue;
+                Response.Redirect("Exercise08CRUD.aspx?page=50&pid=" + playerID + "&add=" + "yes");
+            }
+            catch (Exception ex)
+            {
+                MessageLabel1.Text = ex.Message;
+            }
         }
     }
 }

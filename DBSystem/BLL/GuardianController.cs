@@ -12,6 +12,12 @@ namespace DBSystem.BLL
 {
     public class GuardianController
     {
-        
+        public List<Guardian> List()
+        {
+            using (var context = new ContextFSIS())
+            {
+                return context.Guardian.ToList();
+            }
+        }
     }
 }

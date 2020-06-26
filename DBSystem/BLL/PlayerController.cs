@@ -22,5 +22,33 @@ namespace DBSystem.BLL
                 return results.ToList();
             }
         }
+
+        public List<Player> List()
+        {
+            using (var context = new ContextFSIS())
+            {
+                return context.Player.ToList();
+            }
+        }
+
+        public Player FindPlayer(int id)
+        {
+            using (var context = new ContextFSIS())
+            {
+                return context.Player.Find(id);
+            }
+        }
+
+        public int AddPlayer(Player item)
+        {
+            using (var context = new ContextFSIS())
+            {
+                context.Player.Add(item);
+                context.SaveChanges();
+                return item.PlayerID;
+
+            }
+        }
+
     }
 }
