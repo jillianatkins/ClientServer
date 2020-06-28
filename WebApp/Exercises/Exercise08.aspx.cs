@@ -13,11 +13,17 @@ namespace WebApp.Exercises
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            MessageLabel1.Text = "";
+            //MessageLabel1.Text = "";
             if (!Page.IsPostBack)
             {
                 BindList();
             }
+        }
+
+        protected void ShowMessage(string message, string cssclass)
+        {
+            MessageLabel.Attributes.Add("class", cssclass);
+            MessageLabel.InnerHtml = message;
         }
         protected void BindList()
         {
@@ -35,14 +41,15 @@ namespace WebApp.Exercises
             }
             catch (Exception ex)
             {
-                MessageLabel1.Text = ex.Message;
+
+                ShowMessage(ex.ToString(), "alert alert-danger");
             }
         }
         protected void Fetch_Click(object sender, EventArgs e)
         {
             if (List01.SelectedIndex == 0)
             {
-                MessageLabel1.Text = "Select a Player";
+                ShowMessage("Select a Player", "alert alert-warning");
             }
             else
             {
@@ -53,7 +60,7 @@ namespace WebApp.Exercises
                 }
                 catch (Exception ex)
                 {
-                    MessageLabel1.Text = ex.Message;
+                    ShowMessage(ex.ToString(), "alert alert-danger");
                 }
             }
         }
@@ -66,7 +73,7 @@ namespace WebApp.Exercises
             }
             catch (Exception ex)
             {
-                MessageLabel1.Text = ex.Message;
+                ShowMessage(ex.ToString(), "alert alert-danger");
             }
         }
     }

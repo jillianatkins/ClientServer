@@ -9,6 +9,10 @@
         <asp:Button ID="ButtonAdd" runat="server" Text="Add" 
              CausesValidation="false" OnClick="Add_Click"/>
         <br /><br />
-        <asp:Label ID="MessageLabel1" runat="server" ></asp:Label>
+        <div class="row">
+        <div class="col-12">
+            <label ID="MessageLabel" runat="server" />
+        </div>
+            </div>
     </div>
 </asp:Content>

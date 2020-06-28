@@ -140,46 +140,46 @@ namespace WebApp.Exercises
             int age = 0;
             if (string.IsNullOrEmpty(FirstName.Text))
             {
-                ShowMessage("First Name is required", "alert alert-danger");
+                ShowMessage("First Name is required", "alert alert-warning");
                 return false;
             }
 
             if (string.IsNullOrEmpty(LastName.Text))
             {
-                ShowMessage("Last Name is required", "alert alert-danger");
+                ShowMessage("Last Name is required", "alert alert-alert-warning");
                 return false;
             }
 
             if (string.IsNullOrEmpty(Age.Text))
             {
-                ShowMessage("Age is required", "alert alert-danger");
+                ShowMessage("Age is required", "alert alert-alert-warning");
                 return false;
             }
 
             if (int.TryParse(Age.Text, out age))
             {
-                if (age < 0 || age > 14)
+                if (age < 6 || age > 14)
                 {
-                    ShowMessage("Player's age must be between 6 and 14", "alert alert-danger");
+                    ShowMessage("Player's age must be between 6 and 14", "alert alert-warning");
                     return false;
                 }
             }
 
             if (string.IsNullOrEmpty(Gender.Text))
             {
-                ShowMessage("Gender is required", "alert alert-danger");
+                ShowMessage("Gender is required", "alert alert-warning");
                 return false;
             }
 
-            if (Gender.Text != "M" || Gender.Text != "F")
+            if (Gender.Text != "M" && Gender.Text != "F")
             {
-                ShowMessage("Gender must be like either M or F", "alert alert-danger");
+                ShowMessage("Gender must be either M or F", "alert alert-warning");
                 return false;
             }
 
             if (string.IsNullOrEmpty(ABHealth.Text))
             {
-                ShowMessage("Alberta Health Care Number is required", "alert alert-danger");
+                ShowMessage("Alberta Health Care Number is required", "alert alert-warning");
                 return false;
             }
 
@@ -188,19 +188,19 @@ namespace WebApp.Exercises
 
             if (!match1.Success)
             {
-                ShowMessage("Alberta Health Care Number must 10 digits long and must be like 1012345678", "alert alert-danger");
+                ShowMessage("Alberta Health Care Number must 10 digits long and must be like 1012345678", "alert alert-warning");
                 return false;
             }
 
             if (TeamList.SelectedValue == "0")
             {
-                ShowMessage("Team is required", "alert alert-info");
+                ShowMessage("Team is required", "alert alert-warning");
                 return false;
             }
             
             if (GuardianList.SelectedValue == "0")
             {
-                ShowMessage("Guardian is required", "alert alert-info");
+                ShowMessage("Guardian is required", "alert alert-warning");
                 return false;
             }
 
