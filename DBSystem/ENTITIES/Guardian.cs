@@ -18,5 +18,14 @@ namespace DBSystem.ENTITIES
         public string LastName { get; set; }
         public string EmergencyPhoneNumber { get; set; }
         public string EmailAddress { get; set; }
+
+        [NotMapped]
+        public string GuardianConcat
+        {
+            get
+            {
+                return LastName + ", " + FirstName;
+            }
+        }
     }
 }

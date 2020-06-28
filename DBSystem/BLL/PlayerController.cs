@@ -50,5 +50,28 @@ namespace DBSystem.BLL
             }
         }
 
+        public int PlayerUpdate(Player item)
+        {
+            using (var context = new ContextFSIS())
+            {
+                context.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                return context.SaveChanges();
+            }
+        }
+        public int PlayerDelete(int playerID)
+        {
+            using (var context = new ContextFSIS())
+            {
+                var existing = context.Player.Find(playerID);
+                if (existing == null)
+                {
+                    throw new Exception("Record has been removed from database");
+                }
+                context.Player.Remove(existing);
+                return context.SaveChanges();
+            }
+        }
+
+
     }
 }

@@ -18,6 +18,17 @@
                 </asp:TextBox>
         </div>
     </div>
+
+ <div class="row">
+        <div class="col-4 text-right">
+                  <asp:Label ID="Label3" runat="server" Text="First Name"
+                     AssociatedControlID="FirstName"></asp:Label>
+        </div>
+        <div class="col-8 text-left">
+                <asp:TextBox ID="FirstName" runat="server"></asp:TextBox>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-4 text-right">
                   <asp:Label ID="Label2" runat="server" Text="Last Name"
@@ -25,15 +36,6 @@
         </div>
         <div class="col-8 text-left">
                 <asp:TextBox ID="LastName" runat="server"></asp:TextBox>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4 text-right">
-                  <asp:Label ID="Label3" runat="server" Text="First Name"
-                     AssociatedControlID="FirstName"></asp:Label>
-        </div>
-        <div class="col-8 text-left">
-                <asp:TextBox ID="FirstName" runat="server"></asp:TextBox>
         </div>
     </div>
 
@@ -59,7 +61,8 @@
                 <asp:TextBox ID="Gender" runat="server"> 
                 </asp:TextBox>
         </div>
-    </div>
+   </div>
+
 
     <div class="row">
         <div class="col-4 text-right">
@@ -94,6 +97,18 @@
         <div class="col-8 text-left">
                 <asp:DropDownList ID="GuardianList" runat="server" Width="300px">
                 </asp:DropDownList> 
+        </div>
+    </div>
+
+        <div class="row">
+        <div class="col-4 text-right">
+                  <asp:Label ID="Label9" runat="server" Text="Medical Alert Details"
+                     AssociatedControlID="MedicalAlert">
+                  </asp:Label>
+        </div>
+        <div class="col-8 text-left">
+                <asp:TextBox ID="MedicalAlert" runat="server"> 
+                </asp:TextBox>
         </div>
     </div>
     

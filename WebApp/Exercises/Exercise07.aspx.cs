@@ -42,7 +42,7 @@ namespace WebApp.Exercises
         {
             if (List01.SelectedIndex == 0)
             {
-                MessageLabel.Text = "Select a team to view it's players";
+                MessageLabel.Text = "Select a team to view its players";
             }
             else
             {

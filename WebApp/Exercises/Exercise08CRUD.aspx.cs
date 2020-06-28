@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Text.RegularExpressions;
 
 using DBSystem.BLL;
 using DBSystem.ENTITIES;
@@ -26,8 +27,8 @@ namespace WebApp.Exercises
                 pagenum = Request.QueryString["page"];
                 pid = Request.QueryString["pid"];
                 add = Request.QueryString["add"];
-                BindCategoryList();
-                BindSupplierList();
+                BindTeamList();
+                BindGuardianList();
                 if (string.IsNullOrEmpty(pid))
                 {
                     Response.Redirect("~/Default.aspx");
@@ -52,34 +53,23 @@ namespace WebApp.Exercises
                     else
                     {
                         ID.Text = info.PlayerID.ToString(); //NOT NULL in Database
-                        LastName.Text = info.LastName; //NOT NULL in Database
                         FirstName.Text = info.FirstName; //NOT NULL in Database
+                        LastName.Text = info.LastName; //NOT NULL in Database
+                        Age.Text = info.Age.ToString(); // NOT NULL in Database
+                        Gender.Text = info.Gender; // NOT NULL in Database
+                        ABHealth.Text = info.AlbertaHealthCareNumber; // NOT NULL in Database
+                        TeamList.SelectedValue = info.TeamID.ToString(); // NOT NULL in Database
+                        GuardianList.SelectedValue = info.GuardianID.ToString(); // NOT NULL in Database
 
-                        if (info.CategoryID.HasValue) //NULL in Database
+                        if (MedicalAlert.Text != null) // NULL in Database
                         {
-                            CategoryList.SelectedValue = info.CategoryID.ToString();
+                            MedicalAlert.Text = info.MedicalAlertDetails;
                         }
                         else
                         {
-                            CategoryList.SelectedValue = "0";
+                            info.MedicalAlertDetails = "";
                         }
-                        if (info.SupplierID.HasValue) //NULL in Database
-                        {
-                            SupplierList.SelectedValue = info.SupplierID.ToString();
-                        }
-                        else
-                        {
-                            SupplierList.SelectedValue = "0";
-                        }
-                        if (info.UnitPrice.HasValue) //NULL in Database
-                        {
-                            UnitPrice.Text = string.Format("{0:0.00}", info.UnitPrice.Value);
-                        }
-                        else
-                        {
-                            UnitPrice.Text = "";
-                        }
-                        Discontinued.Checked = info.Discontinued; //NOT NULL in Database
+
                     }
                 }
             }
@@ -97,22 +87,22 @@ namespace WebApp.Exercises
             MessageLabel.Attributes.Add("class", cssclass);
             MessageLabel.InnerHtml = message;
         }
-        protected void BindCategoryList()
+        protected void BindTeamList()
         {
             try
             {
-                CategoryController sysmgr = new CategoryController();
-                List<Category> info = null;
+                TeamController sysmgr = new TeamController();
+                List<Team> info = null;
                 info = sysmgr.List();
-                info.Sort((x, y) => x.CategoryName.CompareTo(y.CategoryName));
-                CategoryList.DataSource = info;
-                CategoryList.DataTextField = nameof(Category.CategoryName);
-                CategoryList.DataValueField = nameof(Category.CategoryID);
-                CategoryList.DataBind();
+                info.Sort((x, y) => x.TeamName.CompareTo(y.TeamName));
+                TeamList.DataSource = info;
+                TeamList.DataTextField = nameof(Team.TeamName);
+                TeamList.DataValueField = nameof(Team.TeamID);
+                TeamList.DataBind();
                 ListItem myitem = new ListItem();
                 myitem.Value = "0";
                 myitem.Text = "select...";
-                CategoryList.Items.Insert(0, myitem);
+                TeamList.Items.Insert(0, myitem);
                 //CategoryList.Items.Insert(0, "select...");
 
             }
@@ -121,22 +111,22 @@ namespace WebApp.Exercises
                 ShowMessage(GetInnerException(ex).ToString(), "alert alert-danger");
             }
         }
-        protected void BindSupplierList()
+        protected void BindGuardianList()
         {
             try
             {
-                SupplierController sysmgr = new SupplierController();
-                List<Supplier> info = null;
+                GuardianController sysmgr = new GuardianController();
+                List<Guardian> info = null;
                 info = sysmgr.List();
-                info.Sort((x, y) => x.ContactName.CompareTo(y.ContactName));
-                SupplierList.DataSource = info;
-                SupplierList.DataTextField = nameof(Supplier.ContactName);
-                SupplierList.DataValueField = nameof(Supplier.SupplierID);
-                SupplierList.DataBind();
+                info.Sort((x, y) => x.LastName.CompareTo(y.LastName));
+                GuardianList.DataSource = info;
+                GuardianList.DataTextField = nameof(Guardian.GuardianConcat);
+                GuardianList.DataValueField = nameof(Guardian.GuardianID);
+                GuardianList.DataBind();
                 ListItem myitem = new ListItem();
                 myitem.Value = "0";
                 myitem.Text = "select...";
-                SupplierList.Items.Insert(0, myitem);
+                GuardianList.Items.Insert(0, myitem);
                 //SupplierList.Items.Insert(0, "select...");
 
             }
@@ -147,42 +137,80 @@ namespace WebApp.Exercises
         }
         protected bool Validation(object sender, EventArgs e)
         {
-            double unitprice = 0;
-            if (string.IsNullOrEmpty(Name.Text))
+            int age = 0;
+            if (string.IsNullOrEmpty(FirstName.Text))
             {
-                ShowMessage("Name is required", "alert alert-info");
+                ShowMessage("First Name is required", "alert alert-danger");
                 return false;
             }
-            else if (CategoryList.SelectedValue == "0")
+
+            if (string.IsNullOrEmpty(LastName.Text))
             {
-                ShowMessage("Category is required", "alert alert-info");
+                ShowMessage("Last Name is required", "alert alert-danger");
                 return false;
             }
-            else if (string.IsNullOrEmpty(UnitPrice.Text))
+
+            if (string.IsNullOrEmpty(Age.Text))
             {
-                ShowMessage("Unit Price is required", "alert alert-info");
+                ShowMessage("Age is required", "alert alert-danger");
                 return false;
             }
-            else if (double.TryParse(UnitPrice.Text, out unitprice))
+
+            if (int.TryParse(Age.Text, out age))
             {
-                if (unitprice < 0.00 || unitprice > 200.00)
+                if (age < 0 || age > 14)
                 {
-                    ShowMessage("Unit Price must be between $0.00 and $200.00", "alert alert-info");
+                    ShowMessage("Player's age must be between 6 and 14", "alert alert-danger");
                     return false;
                 }
             }
-            else
+
+            if (string.IsNullOrEmpty(Gender.Text))
             {
-                ShowMessage("Unit Price must be a real number", "alert alert-info");
+                ShowMessage("Gender is required", "alert alert-danger");
                 return false;
             }
+
+            if (Gender.Text != "M" || Gender.Text != "F")
+            {
+                ShowMessage("Gender must be like either M or F", "alert alert-danger");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(ABHealth.Text))
+            {
+                ShowMessage("Alberta Health Care Number is required", "alert alert-danger");
+                return false;
+            }
+
+            string input1 = ABHealth.Text;
+            Match match1 = Regex.Match(input1, @"^[1-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$");
+
+            if (!match1.Success)
+            {
+                ShowMessage("Alberta Health Care Number must 10 digits long and must be like 1012345678", "alert alert-danger");
+                return false;
+            }
+
+            if (TeamList.SelectedValue == "0")
+            {
+                ShowMessage("Team is required", "alert alert-info");
+                return false;
+            }
+            
+            if (GuardianList.SelectedValue == "0")
+            {
+                ShowMessage("Guardian is required", "alert alert-info");
+                return false;
+            }
+
             return true;
         }
         protected void Back_Click(object sender, EventArgs e)
         {
             if (pagenum == "50")
             {
-                Response.Redirect("50ASPControlsMultiRecordDropdownToSingleRecord.aspx");
+                Response.Redirect("Exercise08.aspx");
             }
             else if (pagenum == "60")
             {
@@ -208,11 +236,14 @@ namespace WebApp.Exercises
         protected void Clear(object sender, EventArgs e)
         {
             ID.Text = "";
-            Name.Text = "";
-            UnitPrice.Text = "";
-            Discontinued.Checked = false;
-            CategoryList.ClearSelection();
-            SupplierList.ClearSelection();
+            FirstName.Text = "";
+            LastName.Text = "";
+            Age.Text = "";
+            Gender.Text = "";
+            ABHealth.Text = "";
+            TeamList.ClearSelection();
+            GuardianList.ClearSelection();
+            MedicalAlert.Text = "";
         }
         protected void Add_Click(object sender, EventArgs e)
         {
@@ -221,30 +252,35 @@ namespace WebApp.Exercises
             {
                 try
                 {
-                    ProductController sysmgr = new ProductController();
-                    Product item = new Product();
-                    //No ProductID here as the database will give a new one back when we add
-                    item.ProductName = Name.Text.Trim(); //NOT NULL in Database
-                    if (SupplierList.SelectedValue == "0") //NULL in Database
+                    PlayerController sysmgr = new PlayerController();
+                    Player item = new Player();
+                    //No PlayerID here as the database will give a new one back when we add
+                    item.FirstName = FirstName.Text.Trim(); //NOT NULL in Database
+                    item.LastName = LastName.Text.Trim(); // NOT NULL in Database
+                    item.Age = int.Parse(Age.Text);
+                    item.Gender = Gender.Text;
+                    item.AlbertaHealthCareNumber = ABHealth.Text;
+                    item.TeamID = int.Parse(TeamList.SelectedValue);
+                    item.GuardianID = int.Parse(GuardianList.SelectedValue);
+
+                    
+
+                    if (string.IsNullOrEmpty(MedicalAlert.Text))
                     {
-                        item.SupplierID = null;
+                        item.MedicalAlertDetails = null;
                     }
+
                     else
                     {
-                        item.SupplierID = int.Parse(SupplierList.SelectedValue);
+                        item.MedicalAlertDetails = MedicalAlert.Text;
                     }
-                    //CategoryID can be NULL in Database but NOT NULL when record is added in this CRUD page
-                    item.CategoryID = int.Parse(CategoryList.SelectedValue);
-                    //UnitPrice can be NULL in Database but NOT NULL when record is added in this CRUD page
-                    item.UnitPrice = decimal.Parse(UnitPrice.Text);
-                    item.Discontinued = Discontinued.Checked; //NOT NULL in Database
-                    int newID = sysmgr.Add(item);
+
+                    int newID = sysmgr.AddPlayer(item);
                     ID.Text = newID.ToString();
                     ShowMessage("Record has been ADDED", "alert alert-success");
                     AddButton.Enabled = false;
                     UpdateButton.Enabled = true;
                     DeleteButton.Enabled = true;
-                    Discontinued.Enabled = true;
                 }
                 catch (Exception ex)
                 {
@@ -259,22 +295,28 @@ namespace WebApp.Exercises
             {
                 try
                 {
-                    ProductController sysmgr = new ProductController();
-                    Product item = new Product();
-                    item.ProductID = int.Parse(ID.Text);
-                    item.ProductName = Name.Text.Trim();
-                    if (SupplierList.SelectedValue == "0")
+                    PlayerController sysmgr = new PlayerController();
+                    Player item = new Player();
+                    item.PlayerID = int.Parse(ID.Text);
+                    item.FirstName = FirstName.Text.Trim(); //NOT NULL in Database
+                    item.LastName = LastName.Text.Trim(); // NOT NULL in Database
+                    item.Age = int.Parse(Age.Text);
+                    item.Gender = Gender.Text;
+                    item.AlbertaHealthCareNumber = ABHealth.Text;
+                    item.TeamID = int.Parse(TeamList.SelectedValue);
+                    item.GuardianID = int.Parse(GuardianList.SelectedValue);
+
+                    if (string.IsNullOrEmpty(MedicalAlert.Text))
                     {
-                        item.SupplierID = null;
+                        item.MedicalAlertDetails = null;
                     }
+
                     else
                     {
-                        item.SupplierID = int.Parse(SupplierList.SelectedValue);
+                        item.MedicalAlertDetails = MedicalAlert.Text;
                     }
-                    item.CategoryID = int.Parse(CategoryList.SelectedValue);
-                    item.UnitPrice = decimal.Parse(UnitPrice.Text);
-                    item.Discontinued = Discontinued.Checked;
-                    int rowsaffected = sysmgr.Update(item);
+
+                    int rowsaffected = sysmgr.PlayerUpdate(item);
                     if (rowsaffected > 0)
                     {
                         ShowMessage("Record has been UPDATED", "alert alert-success");
@@ -297,8 +339,8 @@ namespace WebApp.Exercises
             {
                 try
                 {
-                    ProductController sysmgr = new ProductController();
-                    int rowsaffected = sysmgr.Delete(int.Parse(ID.Text));
+                    PlayerController sysmgr = new PlayerController();
+                    int rowsaffected = sysmgr.PlayerDelete(int.Parse(ID.Text));
                     if (rowsaffected > 0)
                     {
                         ShowMessage("Record has been DELETED", "alert alert-success");
@@ -310,7 +352,6 @@ namespace WebApp.Exercises
                     }
                     UpdateButton.Enabled = false;
                     DeleteButton.Enabled = false;
-                    Discontinued.Enabled = false;
                     AddButton.Enabled = true;
                 }
                 catch (Exception ex)
