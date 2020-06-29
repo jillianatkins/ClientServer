@@ -146,13 +146,13 @@ namespace WebApp.Exercises
 
             if (string.IsNullOrEmpty(LastName.Text))
             {
-                ShowMessage("Last Name is required", "alert alert-alert-warning");
+                ShowMessage("Last Name is required", "alert alert-warning");
                 return false;
             }
 
             if (string.IsNullOrEmpty(Age.Text))
             {
-                ShowMessage("Age is required", "alert alert-alert-warning");
+                ShowMessage("Age is required", "alert alert-warning");
                 return false;
             }
 
