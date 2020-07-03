@@ -14,12 +14,20 @@ namespace WebApp.Exercises
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            MessageLabel.Text = "";
+            //MessageLabel.Text = "";
             if (!Page.IsPostBack)
             {
                 BindList();
             }
         }
+
+        protected void ShowMessage(string message, string cssclass)
+        {
+            MessageLabel.Attributes.Add("class", cssclass);
+            MessageLabel.InnerHtml = message;
+        }
+
+
         protected void BindList()
         {
             try
@@ -38,17 +46,18 @@ namespace WebApp.Exercises
             }
             catch (Exception ex)
             {
-                MessageLabel.Text = ex.Message;
+                ShowMessage(ex.ToString(), "alert alert-danger");
             }
         }
         protected void Fetch_Click01(object sender, EventArgs e)
         {
             if (List01.SelectedIndex == 0)
             {
-                MessageLabel.Text = "Select a School to view its Programs";
+                ShowMessage("Select a school to view its programs", "alert alert-warning");
             }
             else
             {
+                ShowMessage("", "");
                 try
                 {
                     ProgramsController sysmgr02 = new ProgramsController();
@@ -66,7 +75,7 @@ namespace WebApp.Exercises
                 }
                 catch (Exception ex)
                 {
-                    MessageLabel.Text = ex.Message;
+                    ShowMessage(ex.ToString(), "alert alert-danger");
                 }
             }
         }
@@ -74,7 +83,7 @@ namespace WebApp.Exercises
         {
             if (List02.SelectedIndex == 0)
             {
-                MessageLabel.Text = "Select a Program";
+                ShowMessage("Select a program", "alert alert-warning");
             }
             else
             {
@@ -85,7 +94,7 @@ namespace WebApp.Exercises
                 }
                 catch (Exception ex)
                 {
-                    MessageLabel.Text = ex.Message;
+                    ShowMessage(ex.ToString(), "alert alert-danger");
                 }
             }
         }

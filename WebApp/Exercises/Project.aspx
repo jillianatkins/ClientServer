@@ -20,10 +20,10 @@
             <asp:DropDownList ID="List02" runat="server"></asp:DropDownList>&nbsp;&nbsp;
             <asp:Button ID="Fetch02" runat="server" Text="Fetch" 
                  CausesValidation="false" OnClick="Fetch_Click02"/>
+            <br /> <br />
+            <label ID="MessageLabel" runat="server" />
         </div>
     </div>
-    <div>
-        <br /><br />
-        <asp:Label ID="MessageLabel" runat="server" ></asp:Label>
-    </div>
+
+
 </asp:Content>
