@@ -132,7 +132,14 @@ namespace WebApp.Exercises
                     return false;
                 }
             }
-            else if (string.IsNullOrEmpty(IntTuition.Text))
+
+            else
+            {
+                ShowMessage("Tuition must be a real number", "alert alert-warning");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(IntTuition.Text))
             {
                 ShowMessage("International Tuition cost is required", "alert alert-warning");
                 return false;
@@ -148,7 +155,7 @@ namespace WebApp.Exercises
             }
             else
             {
-                ShowMessage("Tuition must be a real number", "alert alert-warning");
+                ShowMessage("International Tuition must be a real number", "alert alert-warning");
                 return false;
             }
             return true;
